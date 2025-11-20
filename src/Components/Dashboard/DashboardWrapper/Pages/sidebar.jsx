@@ -1,4 +1,4 @@
-import { colors, otherStyle } from "./styles";
+import { colors, otherStyle } from "../../styles";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import PartnerIcon from "@mui/icons-material/Handshake";
 import DashboardIcon from "@mui/icons-material/DashboardCustomize";
@@ -7,15 +7,18 @@ import TagsIcon from "@mui/icons-material/TurnedIn";
 import PermissionIcon from "@mui/icons-material/Security";
 import ValidationIcon from "@mui/icons-material/CloudDone";
 import ArrowIcon from "@mui/icons-material/ArrowForward";
-import Footer from "./footer";
 import Content from "./Content";
 
-const Sidebar = () => {
+const Sidebar = ({ slide }) => {
   return (
     <>
-      <div className="flex w-full">
-        <div className="w-1/6 h-screen shadow-xl">
-          <ul>
+      <div>
+        <div
+          className={` h-screen shadow-xl bg-white transition-transform duration-300 ${
+            slide ? "translate-x-0 w-[350px]" : "-translate-x-full w-0"
+          }`}
+        >
+          <ul className={slide ? "block" : "hidden"}>
             <li className="p-5">
               <button className={otherStyle.button}>
                 {" "}
@@ -53,7 +56,6 @@ const Sidebar = () => {
             </li>
           </ul>
         </div>
-        <Content />
       </div>
     </>
   );

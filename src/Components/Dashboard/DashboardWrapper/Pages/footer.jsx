@@ -1,9 +1,10 @@
 const Footer = () => {
   return (
     <>
-      <div className="flex p-4 text-green-900 shadow-xl">
+      {/* fixed bottom-0 left-0  */}
+      <div className="w-full flex p-3 text-green-800 shadow-xl">
         <div className="w-1/2 flex justify-start">
-          <span className="">CloudBalance 2025 | All Rights Reserved</span>
+          <span>CloudBalance 2025 | All Rights Reserved</span>
         </div>
         <div className="w-1/2 flex justify-end">
           <span>Contact Us</span>
