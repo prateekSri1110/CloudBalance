@@ -1,13 +1,11 @@
-// import Wrapper from "./DashboardWrapper/Wrapper";
 import Navbar from "./navbar";
 import Sidebar from "./DashboardWrapper/Pages/sidebar";
-import { useState } from "react";
+import { useContext } from "react";
 import Content from "./DashboardWrapper/Pages/Content";
-// import { colors } from "./styles";
-import Footer from "./DashboardWrapper/Pages/footer";
+import { CloudBalanceContext } from "../contextAPI";
 
 const Dashboard = () => {
-  const [slide, setSlide] = useState(false);
+  const { slide, setSlide } = useContext(CloudBalanceContext);
 
   return (
     <div>
@@ -20,9 +18,6 @@ const Dashboard = () => {
           <Content />
         </div>
       </div>
-
-    
-
     </div>
   );
 };

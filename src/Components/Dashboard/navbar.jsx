@@ -16,7 +16,7 @@ const Navbar = ({ slide, setSlide }) => {
         <nav className="w-full shadow-xl">
           <div className="grid grid-cols-2">
             <div className="flex justify-start realtive">
-              <div className="px-5 py-1">
+              <div className="px-5 py-2">
                 <img src={logo} width={250} alt="cloudkeeper" />
               </div>
 

@@ -3,18 +3,17 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import Onboard from "@mui/icons-material/AirplaneTicket";
 import Cost from "@mui/icons-material/AttachMoney";
 import { FaAws } from "react-icons/fa6";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Sidebar = ({ slide }) => {
   return (
     <>
-      <div className="relative fixed left-0 z-1">
+      <div className="relative fixed left-0">
         <div
           className={`h-[995px] shadow-xl bg-white transition-transform duration-300 ${
             slide ? "translate-x-0 w-[350px]" : "-translate-x-full w-20"
           }`}
         >
-          {/* className={slide ? "block" : "hidden"} */}
           <ul>
             <NavLink
               to="users"

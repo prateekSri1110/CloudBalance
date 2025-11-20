@@ -5,7 +5,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    navigate("/dashboard");
+    navigate("/dashboard/users");
   };
   return (
     <>
@@ -22,12 +22,10 @@ const Login = () => {
               type="email"
               className="block border text-lg  px-5 py-3 w-full rounded border border-blue-200"
               placeholder="Email"
-              name="email"
-              id="email"
             />
           </div>
           <div className="mb-5">
-            <label style={{ color: colors.main }}>Password</label>
+            <label style={{ color: colors.main }} className="mb-4">Password</label>
             <input
               type="password"
               className="block border text-lg px-5 py-3 w-full rounded border border-blue-200"

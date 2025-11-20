@@ -9,7 +9,6 @@ import User from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/U
 function App() {
   return (
     <>
-      {/* <Login /> */}
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
