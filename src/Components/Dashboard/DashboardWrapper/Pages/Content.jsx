@@ -17,4 +17,3 @@ const Content = () => {
 };
 
 export default Content;
-Users

@@ -1,13 +1,9 @@
 import { colors, otherStyle } from "../../styles";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import PartnerIcon from "@mui/icons-material/Handshake";
-import DashboardIcon from "@mui/icons-material/DashboardCustomize";
-import ModuleIcon from "@mui/icons-material/ViewModule";
-import TagsIcon from "@mui/icons-material/TurnedIn";
-import PermissionIcon from "@mui/icons-material/Security";
-import ValidationIcon from "@mui/icons-material/CloudDone";
-import { Link } from "react-router-dom";
-// import ArrowIcon from "@mui/icons-material/ArrowForward";
+import Onboard from "@mui/icons-material/AirplaneTicket";
+import Cost from "@mui/icons-material/AttachMoney";
+import { FaAws } from "react-icons/fa6";
+import { Link, NavLink } from "react-router-dom";
 
 const Sidebar = ({ slide }) => {
   return (
@@ -20,15 +16,12 @@ const Sidebar = ({ slide }) => {
         >
           {/* className={slide ? "block" : "hidden"} */}
           <ul>
-            {/* <li className="p-5">
-              <button className={otherStyle.button}>
-                {" "}
-                Switch to Lens
-                <ArrowIcon fontSize="large" />
-              </button>
-            </li> */}
-
-            <Link to="users">
+            <NavLink
+              to="users"
+              className={({ isActive }) =>
+                `flex ${isActive ? "bg-[#f1fafe]" : ""}`
+              }
+            >
               <li className={otherStyle.li}>
                 <PeopleAltIcon
                   fontSize="large"
@@ -37,12 +30,19 @@ const Sidebar = ({ slide }) => {
                     color: colors.main,
                   }}
                 />
-                <span className={`px-5 ${slide ? "" : "hidden"}`}>Users</span>
+                <span className={`px-5 ${slide ? "" : "hidden"}`}>
+                  User Management
+                </span>
               </li>
-            </Link>
-            <Link to="partner">
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                `flex ${isActive ? "bg-[#f1fafe]" : ""}`
+              }
+              to="partner"
+            >
               <li className={otherStyle.li}>
-                <PartnerIcon
+                <Onboard
                   fontSize="large"
                   style={{
                     marginLeft: !slide ? "85px" : "",
@@ -50,13 +50,18 @@ const Sidebar = ({ slide }) => {
                   }}
                 />
                 <span className={`px-5 ${slide ? "" : "hidden"}`}>
-                  Partner Management
+                  Onboarding
                 </span>
               </li>
-            </Link>
-            <Link to="tags">
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                `flex ${isActive ? "bg-[#f1fafe]" : ""}`
+              }
+              to="tags"
+            >
               <li className={otherStyle.li}>
-                <DashboardIcon
+                <Cost
                   fontSize="large"
                   style={{
                     marginLeft: !slide ? "85px" : "",
@@ -64,42 +69,20 @@ const Sidebar = ({ slide }) => {
                   }}
                 />
                 <span className={`px-5 ${slide ? "" : "hidden"}`}>
-                  Dashboard Control Grid
+                  Cost Explorer
                 </span>
               </li>
-            </Link>
+            </NavLink>
             <li className={otherStyle.li}>
-              <ModuleIcon
-                fontSize="large"
-                style={{ marginLeft: !slide ? "85px" : "", color: colors.main }}
+              <FaAws
+                fontSize="larger"
+                style={{
+                  marginLeft: !slide ? "85px" : "",
+                  color: colors.main,
+                }}
               />
               <span className={`px-5 ${slide ? "" : "hidden"}`}>
-                Module Control Grid
-              </span>
-            </li>
-            <li className={otherStyle.li}>
-              <TagsIcon
-                fontSize="large"
-                style={{ marginLeft: !slide ? "85px" : "", color: colors.main }}
-              />
-              <span className={`px-5 ${slide ? "" : "hidden"}`}>Tags</span>
-            </li>
-            <li className={otherStyle.li}>
-              <PermissionIcon
-                fontSize="large"
-                style={{ marginLeft: !slide ? "85px" : "", color: colors.main }}
-              />
-              <span className={`px-5 ${slide ? "" : "hidden"}`}>
-                Permission Group
-              </span>
-            </li>
-            <li className={otherStyle.li}>
-              <ValidationIcon
-                fontSize="large"
-                style={{ marginLeft: !slide ? "85px" : "", color: colors.main }}
-              />
-              <span className={`px-5 ${slide ? "" : "hidden"}`}>
-                Validation Bridge
+                AWS Explorer
               </span>
             </li>
           </ul>
