@@ -64,7 +64,6 @@ const Navbar = ({ slide, setSlide }) => {
             </div>
           </div>
         </nav>
-        <Outlet />
       </div>
     </>
   );

@@ -1,7 +1,0 @@
-wrapper
-    -> header
-    -> container
-        -> sidebar
-        -> main content
-            -> outlet
-            -> footer
