@@ -8,8 +8,7 @@ import User from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/U
 
 function App() {
   return (
-    <>
-      {/* <Login /> */}
+    <div className="">
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
@@ -19,7 +18,7 @@ function App() {
           <Route path="users" element={<User />} />
         </Route>
       </Routes>
-    </>
+    </div>
   );
 }
 

@@ -13,10 +13,10 @@ const Navbar = ({ slide, setSlide }) => {
     <>
       <div>
         {/* fixed top-0 left-0 */}
-        <nav className="w-full shadow-xl">
+        <nav className="lg:w-full md:w-800 shadow-xl">
           <div className="grid grid-cols-2">
             <div className="flex justify-start realtive">
-              <div className="px-5 py-1">
+              <div className="px-5 py-2">
                 <img src={logo} width={250} alt="cloudkeeper" />
               </div>
 
