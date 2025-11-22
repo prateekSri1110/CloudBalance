@@ -1,12 +1,17 @@
 import { usersData } from "../../../../Data/users";
 import { colors } from "../../../styles";
+import AddIcon from "@mui/icons-material/Add";
 
 const User = () => {
   return (
-    <div className="p-2">
+    <div className="w-full p-2">
       <h1 className="font-bold text-2xl mb-5">Users</h1>
 
-      <div className="w-full overflow-auto rounded-md shadow">
+      <div className="bg-white p-5 w-full overflow-auto shadow rounded-md">
+        <button className="p-3 bg-teal-800 text-white font-bold mb-4 cursor-pointer">
+          <AddIcon className="mb-1" /> Add New User
+        </button>
+
         <table className="min-w-full border border-blue-300 text-left">
           <thead style={{ backgroundColor: colors.active }}>
             <tr>
@@ -27,9 +32,13 @@ const User = () => {
                 <td className="px-4 py-2">{user.firstName}</td>
                 <td className="px-4 py-2">{user.lastName}</td>
                 <td className="px-4 py-2">{user.email}</td>
-                <td className="px-4 py-2">{user.role}</td>
+                <td className="px-4 py-2">
+                  <button className="bg-blue-100 rounded-md p-1 cursor-pointer">
+                    {user.role}
+                  </button>
+                </td>
                 <td className="px-4 py-2">{user.lastLogin}</td>
-                <td className="px-4 py-2">{user.actions}</td>
+                <td className="px-4 py-2 cursor-pointer">{user.actions}</td>
               </tr>
             ))}
           </tbody>

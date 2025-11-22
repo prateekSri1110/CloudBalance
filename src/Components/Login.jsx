@@ -10,7 +10,7 @@ const Login = () => {
   return (
     <>
       <div className="h-screen flex items-center justify-center">
-        <form className="w-150">
+        <form className="lg:w-150">
           <div className="flex justify-center mb-5">
             <img src={logo} width={300} alt="CloudKeeper" />
           </div>
@@ -25,7 +25,9 @@ const Login = () => {
             />
           </div>
           <div className="mb-5">
-            <label style={{ color: colors.main }} className="mb-4">Password</label>
+            <label style={{ color: colors.main }} className="mb-4">
+              Password
+            </label>
             <input
               type="password"
               className="block border text-lg px-5 py-3 w-full rounded border border-blue-200"
