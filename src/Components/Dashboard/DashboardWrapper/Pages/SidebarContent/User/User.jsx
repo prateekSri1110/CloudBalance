@@ -1,14 +1,20 @@
-import { usersData } from "../../../../Data/users";
-import { colors } from "../../../styles";
+import { useNavigate } from "react-router-dom";
+import { usersData } from "../../../../../Data/users";
+import { colors } from "../../../../styles";
 import AddIcon from "@mui/icons-material/Add";
 
 const User = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="w-full p-2">
       <h1 className="font-bold text-2xl mb-5">Users</h1>
 
       <div className="bg-white p-5 w-full overflow-auto shadow rounded-md">
-        <button className="p-3 bg-teal-800 text-white font-bold mb-4 cursor-pointer">
+        <button
+          className="p-3 bg-teal-800 text-white font-bold mb-4 cursor-pointer"
+          onClick={() => navigate("addUser")}
+        >
           <AddIcon className="mb-1" /> Add New User
         </button>
 
