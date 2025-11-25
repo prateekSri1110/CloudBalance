@@ -6,7 +6,7 @@ export const usersData = [
     email: "prateek.srivastava@CloudBalance.com",
     role: "admin",
     lastLogin: "2025-01-20 10:14 AM",
-    actions: "edit/delete",
+    actions: "",
   },
   {
     id: 2,
