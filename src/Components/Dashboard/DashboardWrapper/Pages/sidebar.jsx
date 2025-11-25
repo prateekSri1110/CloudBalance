@@ -2,10 +2,8 @@ import { colors, otherStyle } from "../../styles";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import { NavLink } from "react-router-dom";
 import Dashboard from "@mui/icons-material/Dashboard";
-import Lock from "@mui/icons-material/LockPerson";
 import Partner from "@mui/icons-material/Handshake";
 import Module from "@mui/icons-material/ViewModule";
-import Validation from "@mui/icons-material/Beenhere";
 
 const Sidebar = ({ slide }) => {
   return (
@@ -38,7 +36,7 @@ const Sidebar = ({ slide }) => {
               className={({ isActive }) =>
                 `flex ${isActive ? "bg-[#f1fafe]" : ""}`
               }
-              to="partnermanagement"
+              to="onboarding"
             >
               <li className={otherStyle.li}>
                 <Partner
@@ -49,7 +47,7 @@ const Sidebar = ({ slide }) => {
                   }}
                 />
                 <span className={`px-5 ${slide ? "" : "hidden"}`}>
-                  Partner Management
+                  Onboarding
                 </span>
               </li>
             </NavLink>
@@ -57,7 +55,7 @@ const Sidebar = ({ slide }) => {
               className={({ isActive }) =>
                 `flex ${isActive ? "bg-[#f1fafe]" : ""}`
               }
-              to="dashboardcontrolgrid"
+              to="costexplorer"
             >
               <li className={otherStyle.li}>
                 <Dashboard
@@ -68,7 +66,7 @@ const Sidebar = ({ slide }) => {
                   }}
                 />
                 <span className={`px-5 ${slide ? "" : "hidden"}`}>
-                  Dashboard Control Grid
+                  Cost Explorer
                 </span>
               </li>
             </NavLink>
@@ -76,7 +74,7 @@ const Sidebar = ({ slide }) => {
               className={({ isActive }) =>
                 `flex ${isActive ? "bg-[#f1fafe]" : ""}`
               }
-              to="modulecontrolgrid"
+              to="awsservice"
             >
               <li className={otherStyle.li}>
                 <Module
@@ -87,62 +85,7 @@ const Sidebar = ({ slide }) => {
                   }}
                 />
                 <span className={`px-5 ${slide ? "" : "hidden"}`}>
-                  Module Control Grid
-                </span>
-              </li>
-            </NavLink>
-            <NavLink
-              className={({ isActive }) =>
-                `flex ${isActive ? "bg-[#f1fafe]" : ""}`
-              }
-              to="tags"
-            >
-              <li className={otherStyle.li}>
-                <Lock
-                  fontSize="large"
-                  style={{
-                    marginLeft: !slide ? "85px" : "",
-                    color: colors.bgCol,
-                  }}
-                />
-                <span className={`px-5 ${slide ? "" : "hidden"}`}>Tags</span>
-              </li>
-            </NavLink>
-            <NavLink
-              className={({ isActive }) =>
-                `flex ${isActive ? "bg-[#f1fafe]" : ""}`
-              }
-              to="permissiongroup"
-            >
-              <li className={otherStyle.li}>
-                <Lock
-                  fontSize="large"
-                  style={{
-                    marginLeft: !slide ? "85px" : "",
-                    color: colors.bgCol,
-                  }}
-                />
-                <span className={`px-5 ${slide ? "" : "hidden"}`}>
-                  Permission Group
-                </span>
-              </li>
-            </NavLink>
-            <NavLink
-              className={({ isActive }) =>
-                `flex ${isActive ? "bg-[#f1fafe]" : ""}`
-              }
-              to="validationgrooup"
-            >
-              <li className={otherStyle.li}>
-                <Validation
-                  fontSize="large"
-                  style={{
-                    marginLeft: !slide ? "85px" : "",
-                    color: colors.bgCol,
-                  }}
-                />
-                <span className={`px-5 ${slide ? "" : "hidden"}`}>
-                  Validation Bridge
+                  AWS Service
                 </span>
               </li>
             </NavLink>
