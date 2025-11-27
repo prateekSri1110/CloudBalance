@@ -11,7 +11,7 @@ const Sidebar = ({ slide }) => {
       <div className="relative fixed left-0 p-3">
         <div
           className={`h-[995px] shadow-xl bg-white transition-transform duration-300 ${
-            slide ? "translate-x-0 w-[350px]" : "-translate-x-full w-20"
+            slide ? "translate-x-0 w-[270px]" : "-translate-x-full w-20"
           }`}
         >
           <ul>

@@ -1,12 +1,23 @@
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/cloudBalance.png";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const cred = { email, password };
+    console.log(email, "   ", password);
+    dispatch({ type: "Login", payload: cred });
     navigate("/dashboard/users");
+    console.log("here");
   };
+
   return (
     <>
       <div className="h-screen flex items-center justify-center">
@@ -21,7 +32,10 @@ const Login = () => {
             <input
               type="email"
               className="block border text-lg  px-5 py-3 w-full rounded border border-blue-200"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
+              required
             />
           </div>
           <div className="mb-5">
@@ -31,7 +45,10 @@ const Login = () => {
             <input
               type="password"
               className="block border text-lg px-5 py-3 w-full rounded border border-blue-200"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
+              required
             />
           </div>
           <button

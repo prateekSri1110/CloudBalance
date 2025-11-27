@@ -7,20 +7,34 @@ import Onboarding from "./Components/Dashboard/DashboardWrapper/Pages/SidebarCon
 import User from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/User/User.jsx";
 import AddUser from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/User/AddUser.jsx";
 import CostExplorer from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/CostExplorer.jsx";
+import { Protected } from "./Components/Protected.jsx";
 
 function App() {
   return (
-    <div className="">
+    <div>
       <Routes>
+        {/* Public Routes */}
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />}>
+
+        {/* Protected Routes */}
+        <Route
+          path="/dashboard"
+          element={
+            <Protected>
+              <Dashboard />
+            </Protected>
+          }
+        >
           <Route path="users" element={<User />} />
           <Route path="users/addUser" element={<AddUser />} />
           <Route path="onboarding" element={<Onboarding />} />
           <Route path="costexplorer" element={<CostExplorer />} />
           <Route path="awsservice" element={<AWSservice />} />
         </Route>
+
+        {/* Catch all */}
+        <Route path="*" element={<Login />} />
       </Routes>
     </div>
   );

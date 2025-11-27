@@ -16,13 +16,8 @@ const Navbar = () => {
     slide: state.slide,
   }));
 
-  // console.log(slide);
-  // console.log(username);
-
   const setSlide = () => {
     dispatch({ type: "Slide", payload: !slide });
-    // console.log(slide);
-    // console.log(username);
   };
 
   return (

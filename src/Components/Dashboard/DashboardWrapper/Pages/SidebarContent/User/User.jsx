@@ -8,6 +8,7 @@ import ToggleOn from "@mui/icons-material/ToggleOn";
 import Edit from "@mui/icons-material/Edit";
 import ArrowUp from "@mui/icons-material/ArrowUpward";
 import Reset from "@mui/icons-material/RotateLeft";
+import { Protected } from "../../../../../Protected";
 
 const User = () => {
   const navigate = useNavigate();
@@ -27,9 +28,6 @@ const User = () => {
     return data.reduce((count, item) => (item.isActive ? count + 1 : count), 0);
   };
 
-  // console.log("count : " + active());
-  // console.log(data);
-
   const handleToggle = (id) => {
     setData((prev) =>
       prev.map((user) =>
@@ -39,19 +37,20 @@ const User = () => {
   };
 
   return (
-    <div className="w-full p-2">
-      <h1 className="font-bold text-3xl mb-5">Users</h1>
+    <div className="w-3/4 p-2">
+      <Protected />
+      <h1 className="font-bold text-2xl mb-5">Users</h1>
 
       <div className="bg-white p-5 w-full overflow-auto shadow rounded-md">
         <div className="w-full flex justify-between">
           <div>
             <button
-              className="p-3 bg-[#0a3ca2] text-white rounded font-bold mb-4 cursor-pointer"
+              className="p-2 bg-[#0a3ca2] text-white rounded font-bold mb-4 cursor-pointer"
               onClick={() => navigate("addUser")}
             >
               <AddIcon className="mb-1" color={colors.bgCol} /> Add New User
             </button>
-            <span className="text-gray-300 text-4xl">|</span>
+            <span className="text-gray-300 text-xl">|</span>
             <span className="py-3 cursor-pointer">
               <Reset />
               Reset Filters
@@ -80,7 +79,7 @@ const User = () => {
           </div>
         </div>
 
-        <table className="min-w-full border border-blue-100 text-left">
+        <table className="min-w-full text-sm border border-blue-100 text-left">
           <thead style={{ backgroundColor: colors.main }}>
             <tr style={{ color: colors.bgCol }}>
               <th className="px-4 py-2">First Name</th>
@@ -93,7 +92,7 @@ const User = () => {
           </thead>
 
           <tbody>
-            {data.map((user, index) => (
+            {data.map((user) => (
               <tr key={user.id} className="even:bg-white odd:bg-gray-100">
                 <td className="px-4 py-2">{user.firstName}</td>
                 <td className="px-4 py-2">{user.lastName}</td>
