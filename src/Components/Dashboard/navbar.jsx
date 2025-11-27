@@ -11,24 +11,18 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { username, slide } = useSelector((state) => ({
-    username: state.user.name,
-    slide: state.slide,
-  }));
+  const username = useSelector((state) => state.user.username);
+  const slide = useSelector((state) => state.slide);
 
-  // console.log(slide);
   // console.log(username);
 
   const setSlide = () => {
     dispatch({ type: "Slide", payload: !slide });
-    // console.log(slide);
-    // console.log(username);
   };
 
   return (
     <>
       <div>
-        {/* fixed top-0 left-0 */}
         <nav className="lg:w-full md:w-800 shadow-xl">
           <div className="grid grid-cols-2">
             <div className="flex justify-start realtive">
@@ -45,7 +39,6 @@ const Navbar = () => {
                 >
                   <MenuIcon style={{ color: colors.bgCol }} fontSize="large" />
                 </button>{" "}
-                {/* <Sidebar slide={slide} setSlide={setSlide} /> */}
               </div>
             </div>
 
