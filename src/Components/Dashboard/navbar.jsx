@@ -5,25 +5,9 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { colors } from "./styles";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 
-const Navbar = () => {
-  const dispatch = useDispatch();
+const Navbar = ({ slide, setSlide }) => {
   const navigate = useNavigate();
-
-  const { username, slide } = useSelector((state) => ({
-    username: state.user.name,
-    slide: state.slide,
-  }));
-
-  // console.log(slide);
-  // console.log(username);
-
-  const setSlide = () => {
-    dispatch({ type: "Slide", payload: !slide });
-    // console.log(slide);
-    // console.log(username);
-  };
 
   return (
     <>
@@ -39,9 +23,7 @@ const Navbar = () => {
               <div className="py-5 px-4">
                 <button
                   className="cursor-pointer"
-                  onClick={() => {
-                    setSlide();
-                  }}
+                  onClick={() => setSlide(!slide)}
                 >
                   <MenuIcon style={{ color: colors.bgCol }} fontSize="large" />
                 </button>{" "}
@@ -59,7 +41,7 @@ const Navbar = () => {
                   style={{ color: colors.bgCol }}
                   className="font-bold text-lg"
                 >
-                  {username}
+                  Prateek Srivastava
                 </span>
               </div>
 

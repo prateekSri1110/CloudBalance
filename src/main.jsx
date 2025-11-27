@@ -2,13 +2,12 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
-import { CloudBalanceStore } from "./Components/Redux/ReduxStore.js";
+import { CloudBalanceContextProvider } from "./Components/contextAPI.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <Provider store={CloudBalanceStore}>
-    <BrowserRouter>
+  <BrowserRouter>
+    <CloudBalanceContextProvider>
       <App />
-    </BrowserRouter>
-  </Provider>
+    </CloudBalanceContextProvider>
+  </BrowserRouter>
 );

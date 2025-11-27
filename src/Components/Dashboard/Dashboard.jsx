@@ -1,15 +1,16 @@
 import Navbar from "./navbar";
 import Sidebar from "./DashboardWrapper/Pages/sidebar";
+import { useContext } from "react";
 import Content from "./DashboardWrapper/Pages/Content";
-import { useSelector } from "react-redux";
+import { CloudBalanceContext } from "../contextAPI";
 
 const Dashboard = () => {
-  const slide = useSelector((state) => state.slide);
+  const { slide, setSlide } = useContext(CloudBalanceContext);
 
   return (
     <div>
       <div className="fixed  top-0 left-0 w-full z-50 bg-white shadow-md">
-        <Navbar />
+        <Navbar slide={slide} setSlide={setSlide} />
       </div>
       <div className="flex pt-20">
         <Sidebar slide={slide} />
