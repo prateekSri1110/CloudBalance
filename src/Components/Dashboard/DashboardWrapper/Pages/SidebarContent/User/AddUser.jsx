@@ -15,7 +15,7 @@ const AddUser = () => {
             <div className="mb-5">
               <label className="mb-4">First Name</label>
               <input
-                type="email"
+                type="text"
                 className="block border text-lg  px-5 py-3 w-full rounded border border-blue-200"
                 placeholder="Enter First Name"
               />
@@ -23,7 +23,7 @@ const AddUser = () => {
             <div className="mb-5 ml-5">
               <label className="mb-4">Last Name</label>
               <input
-                type="password"
+                type="text"
                 className="block border text-lg px-5 py-3 w-full rounded border border-blue-200"
                 placeholder="Enter Last Name"
               />
@@ -34,17 +34,22 @@ const AddUser = () => {
               <label className="mb-5">Email</label>
               <input
                 type="email"
-                className="block border text-lg  px-5 py-3 w-full rounded border border-blue-200"
+                className="block border text-lg px-5 py-3 w-full rounded border border-blue-200"
                 placeholder="Enter Email"
               />
             </div>
             <div className="mb-5 ml-5">
               <label className="mb-4">Select Data</label>
-              <input
-                type="password"
-                className="block border text-lg px-5 py-3 w-full rounded border border-blue-200"
-                placeholder="Select Date"
-              />
+              <br />
+              <select
+                className="block border text-lg text-gray-500 px-5 py-3 w-full rounded border border-blue-200"
+                style={{ width: "300px" }}
+              >
+                <option value=""> Select Role</option>
+                <option value="Admin">Admin</option>
+                <option value="Read-Only">Read-Only</option>
+                <option value="Customer">Customer</option>
+              </select>
             </div>
           </div>
         </form>

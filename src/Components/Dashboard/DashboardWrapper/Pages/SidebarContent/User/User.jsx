@@ -43,36 +43,40 @@ const User = () => {
       <h1 className="font-bold text-3xl mb-5">Users</h1>
 
       <div className="bg-white p-5 w-full overflow-auto shadow rounded-md">
-        <div className="flex gap-4 w-full">
-          <button
-            className="p-3 bg-[#0a3ca2] text-white rounded font-bold mb-4 cursor-pointer"
-            onClick={() => navigate("addUser")}
-          >
-            <AddIcon className="mb-1" color={colors.bgCol} /> Add New User
-          </button>
-          <span className="text-gray-300 text-4xl">|</span>
-          <span className="py-3 cursor-pointer">
-            <Reset />
-            Reset Filters
-          </span>
+        <div className="w-full flex justify-between">
+          <div>
+            <button
+              className="p-3 bg-[#0a3ca2] text-white rounded font-bold mb-4 cursor-pointer"
+              onClick={() => navigate("addUser")}
+            >
+              <AddIcon className="mb-1" color={colors.bgCol} /> Add New User
+            </button>
+            <span className="text-gray-300 text-4xl">|</span>
+            <span className="py-3 cursor-pointer">
+              <Reset />
+              Reset Filters
+            </span>
+          </div>
 
-          <div className="justify-end gap-2 border border-[#0a3ca2] flex items-center rounded-full px-2 py-1">
-            <button
-              className={`px-4 py-2 rounded-full font-medium transition-all ${
-                act ? "bg-[#0a3ca2] text-white" : "text-[#0a3ca2]"
-              }`}
-              onClick={() => setAct(!act)}
-            >
-              Active ({active()})
-            </button>
-            <button
-              className={`px-4 py-2 rounded-full font-medium transition-all ${
-                !act ? "bg-[#0a3ca2] text-white" : "text-[#0a3ca2]"
-              }`}
-              onClick={() => setAct(!act)}
-            >
-              All ({data.length})
-            </button>
+          <div>
+            <div className="border border-[#0a3ca2] flex items-center rounded-full px-2 py-1">
+              <button
+                className={`px-4 py-2 rounded-full font-medium transition-all ${
+                  act ? "bg-[#0a3ca2] text-white" : "text-[#0a3ca2]-800"
+                }`}
+                onClick={() => setAct(!act)}
+              >
+                Active ({active()})
+              </button>
+              <button
+                className={`px-4 py-2 rounded-full font-medium transition-all ${
+                  !act ? "bg-[#0a3ca2] text-white" : "text-[#0a3ca2]-800"
+                }`}
+                onClick={() => setAct(!act)}
+              >
+                All ({data.length})
+              </button>
+            </div>
           </div>
         </div>
 
