@@ -42,7 +42,7 @@ const AddUser = () => {
               <br />
               <select
                 className="block border text-sm text-gray-500 px-5 py-3 w-full rounded border border-blue-200"
-                style={{ width: "300px" }}
+                style={{ width: "245px" }}
               >
                 <option value=""> Select Role</option>
                 <option value="Admin">Admin</option>
