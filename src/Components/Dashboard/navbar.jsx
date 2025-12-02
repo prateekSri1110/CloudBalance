@@ -16,6 +16,8 @@ const Navbar = () => {
     slide: state.slide,
   }));
 
+  console.log();
+
   const setSlide = () => {
     dispatch({ type: "Slide", payload: !slide });
   };
@@ -66,6 +68,7 @@ const Navbar = () => {
               <div className="px-2 py-5">
                 <button
                   onClick={() => {
+                    localStorage.setItem("isLoggedIn", false);
                     navigate("/login");
                   }}
                   className="p-1 hover:shadow-xl font-medium border rounded cursor-pointer"

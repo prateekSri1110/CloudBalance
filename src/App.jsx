@@ -8,9 +8,11 @@ import User from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/U
 import AddUser from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/User/AddUser.jsx";
 import CostExplorer from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/CostExplorer.jsx";
 import { Protected } from "./Components/Protected.jsx";
+// import { AddUserstoDB } from "./Components/Data/addUserstoDB.jsx";
 
 function App() {
   return (
+    // <AddUserstoDB />
     <div>
       <Routes>
         {/* Public Routes */}
