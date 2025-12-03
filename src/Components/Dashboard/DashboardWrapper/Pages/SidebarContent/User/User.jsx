@@ -1,6 +1,6 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { usersData } from "../../../../../Data/users";
 import { colors } from "../../../../styles";
 import AddIcon from "@mui/icons-material/Add";
 import ToggleOff from "@mui/icons-material/ToggleOff";
@@ -8,33 +8,37 @@ import ToggleOn from "@mui/icons-material/ToggleOn";
 import Edit from "@mui/icons-material/Edit";
 import ArrowUp from "@mui/icons-material/ArrowUpward";
 import Reset from "@mui/icons-material/RotateLeft";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { Protected } from "../../../../../Protected";
+import { ActiveUser, handleToggle, deleteUser } from "./UserLogics/userLogic";
 
 const User = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
-  const [act, setAct] = useState(true);
+  const [activeData, setActiveData] = useState([]);
+  const [active, setActive] = useState(true);
+  const [update, setUpdate] = useState(true);
 
   useEffect(() => {
-    const updatedData = usersData?.map((item) => ({
-      ...item,
-      actions: ["edit", "delete"],
-      isActive: false,
-    }));
-    setData(updatedData);
-  }, []);
+    const getUsers = async () => {
+      try {
+        await axios
+          .get("http://localhost:8080/users")
+          .then((res) => setData(res.data));
+      } catch (e) {
+        e.printStackTrace();
+      }
+    };
+    getUsers();
+  }, [update]);
 
-  const active = () => {
-    return data.reduce((count, item) => (item.isActive ? count + 1 : count), 0);
-  };
+  useEffect(() => {
+    const activeUsers = data.filter((user) => user.active);
+    setActiveData(activeUsers);
+  }, [data]);
 
-  const handleToggle = (id) => {
-    setData((prev) =>
-      prev.map((user) =>
-        user.id === id ? { ...user, isActive: !user.isActive } : user
-      )
-    );
-  };
+  // console.log(data);
+  // console.log(activeData);
 
   return (
     <div className="w-3/4 p-2">
@@ -61,17 +65,17 @@ const User = () => {
             <div className="border border-[#0a3ca2] flex items-center rounded-full px-2 py-1">
               <button
                 className={`px-4 py-2 rounded-full font-medium transition-all ${
-                  act ? "bg-[#0a3ca2] text-white" : "text-[#0a3ca2]-800"
+                  !active ? "bg-[#0a3ca2] text-white" : "text-[#0a3ca2]-800"
                 }`}
-                onClick={() => setAct(!act)}
+                onClick={() => setActive(!active)}
               >
-                Active ({active()})
+                Active ({ActiveUser(data)})
               </button>
               <button
                 className={`px-4 py-2 rounded-full font-medium transition-all ${
-                  !act ? "bg-[#0a3ca2] text-white" : "text-[#0a3ca2]-800"
+                  active ? "bg-[#0a3ca2] text-white" : "text-[#0a3ca2]-800"
                 }`}
-                onClick={() => setAct(!act)}
+                onClick={() => setActive(!active)}
               >
                 All ({data.length})
               </button>
@@ -92,11 +96,11 @@ const User = () => {
           </thead>
 
           <tbody>
-            {data.map((user) => (
+            {(!active ? activeData : data).map((user) => (
               <tr key={user.id} className="even:bg-white odd:bg-gray-100">
                 <td className="px-4 py-2">{user.firstName}</td>
                 <td className="px-4 py-2">{user.lastName}</td>
-                <td className="px-4 py-2">{user.email}</td>
+                <td className="px-4 py-2">{user.emailId}</td>
                 <td className="px-4 py-2">
                   <button className="bg-blue-100 border border-1 px-2 cursor-pointer">
                     {user.role}
@@ -105,8 +109,12 @@ const User = () => {
                 <td className="px-4 py-2 text-sm">{user.lastLogin}</td>
                 <td className="px-4 py-2 cursor-pointer">
                   <div className="flex gap-5">
-                    <button onClick={() => handleToggle(user.id)}>
-                      {user.isActive ? (
+                    <button
+                      onClick={() =>
+                        handleToggle(user.emailId, { update, setUpdate })
+                      }
+                    >
+                      {user.active ? (
                         <ToggleOn
                           style={{ color: colors.bgCol }}
                           fontSize="large"
@@ -117,6 +125,13 @@ const User = () => {
                     </button>
                     <button>
                       <Edit style={{ color: colors.bgCol }} />
+                    </button>
+                    <button
+                      onClick={() =>
+                        deleteUser(user.emailId, { update, setUpdate })
+                      }
+                    >
+                      <DeleteIcon style={{ color: colors.bgCol }} />
                     </button>
                     <button className="bg-[#0a3ca2] text-white px-2 rounded hover:shadow-lg">
                       Promote <ArrowUp style={{ color: "white" }} />{" "}

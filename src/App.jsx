@@ -8,6 +8,7 @@ import User from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/U
 import AddUser from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/User/AddUser.jsx";
 import CostExplorer from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/CostExplorer.jsx";
 import { Protected } from "./Components/Protected.jsx";
+import Error from "./Components/Dashboard/DashboardWrapper/Pages/Error.jsx";
 // import { AddUserstoDB } from "./Components/Data/addUserstoDB.jsx";
 
 function App() {
@@ -36,7 +37,7 @@ function App() {
         </Route>
 
         {/* Catch all */}
-        <Route path="*" element={<Login />} />
+        <Route path="*" element={<Error />} />
       </Routes>
     </div>
   );

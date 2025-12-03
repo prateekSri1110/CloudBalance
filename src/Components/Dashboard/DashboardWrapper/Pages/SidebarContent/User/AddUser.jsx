@@ -1,8 +1,33 @@
+import axios from "axios";
 import { colors } from "../../../../styles";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const AddUser = () => {
   const navigate = useNavigate();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [emailId, setEmailId] = useState("");
+  const [role, setRole] = useState("");
+
+  const handleAddUser = async () => {
+    try {
+      await axios
+        .post("http://localhost:8080/users/add", {
+          firstName: firstName,
+          lastName: lastName,
+          emailId: emailId,
+          role: role,
+        })
+        .then(() => {
+          alert("User Added!");
+          navigate("/dashboard/users");
+        })
+        .catch((err) => alert(err));
+    } catch (e) {
+      e.printStackTrace();
+    }
+  };
 
   return (
     <div className="p-5 w-2/3 bg-white-400">
@@ -17,6 +42,8 @@ const AddUser = () => {
                 type="text"
                 className="block border text-sm  px-5 py-3 w-full rounded border border-blue-200"
                 placeholder="Enter First Name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
               />
             </div>
             <div className="mb-5 ml-5">
@@ -25,6 +52,8 @@ const AddUser = () => {
                 type="text"
                 className="block border text-sm px-5 py-3 w-full rounded border border-blue-200"
                 placeholder="Enter Last Name"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
               />
             </div>
           </div>
@@ -35,6 +64,8 @@ const AddUser = () => {
                 type="email"
                 className="block border text-sm px-5 py-3 w-full rounded border border-blue-200"
                 placeholder="Enter Email"
+                value={emailId}
+                onChange={(e) => setEmailId(e.target.value)}
               />
             </div>
             <div className="mb-5 ml-5">
@@ -43,6 +74,8 @@ const AddUser = () => {
               <select
                 className="block border text-sm text-gray-500 px-5 py-3 w-full rounded border border-blue-200"
                 style={{ width: "245px" }}
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
               >
                 <option value=""> Select Role</option>
                 <option value="Admin">Admin</option>
@@ -65,9 +98,7 @@ const AddUser = () => {
         </button>
         <button
           className="text-white font-bold bg-gray-500 px-5 py-2 border rounded-sm mb-4 cursor-pointer"
-          onClick={() => {
-            alert("User added!");
-          }}
+          onClick={() => handleAddUser()}
         >
           Submit
         </button>

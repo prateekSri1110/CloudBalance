@@ -21,8 +21,8 @@ export const AddUserstoDB = () => {
       for (const user of data) {
         try {
           const res = await axios.post("http://localhost:8080/users/add", {
-            firstName: user.firstname,
-            lastName: user.lastname,
+            firstName: user.firstName,
+            lastName: user.lastName,
             emailId: user.email,
             role: user.role,
             lastLogin: user.lastLogin,
