@@ -10,7 +10,7 @@ import ArrowUp from "@mui/icons-material/ArrowUpward";
 import Reset from "@mui/icons-material/RotateLeft";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Protected } from "../../../../../Protected";
-import { ActiveUser, handleToggle, deleteUser } from "./UserLogics/userLogic";
+import { ActiveUser, HandleToggle, DeleteUser } from "./UserLogics/userLogic";
 
 const User = () => {
   const navigate = useNavigate();
@@ -111,7 +111,7 @@ const User = () => {
                   <div className="flex gap-5">
                     <button
                       onClick={() =>
-                        handleToggle(user.emailId, { update, setUpdate })
+                        HandleToggle(user.emailId, { update, setUpdate })
                       }
                     >
                       {user.active ? (
@@ -128,7 +128,7 @@ const User = () => {
                     </button>
                     <button
                       onClick={() =>
-                        deleteUser(user.emailId, { update, setUpdate })
+                        DeleteUser(user.emailId, { update, setUpdate })
                       }
                     >
                       <DeleteIcon style={{ color: colors.bgCol }} />

@@ -1,7 +1,7 @@
-import axios from "axios";
 import { colors } from "../../../../styles";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
 
 const AddUser = () => {
   const navigate = useNavigate();
@@ -10,14 +10,21 @@ const AddUser = () => {
   const [emailId, setEmailId] = useState("");
   const [role, setRole] = useState("");
 
-  const handleAddUser = async () => {
+  const user = {
+    firstName: firstName,
+    lastName: lastName,
+    emailId: emailId,
+    role: role,
+  };
+
+  const HandleAddUser = async (user) => {
     try {
       await axios
         .post("http://localhost:8080/users/add", {
-          firstName: firstName,
-          lastName: lastName,
-          emailId: emailId,
-          role: role,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          emailId: user.emailId,
+          role: user.role,
         })
         .then(() => {
           alert("User Added!");
@@ -26,6 +33,7 @@ const AddUser = () => {
         .catch((err) => alert(err));
     } catch (e) {
       e.printStackTrace();
+      console.log("Error :", e);
     }
   };
 
@@ -98,7 +106,7 @@ const AddUser = () => {
         </button>
         <button
           className="text-white font-bold bg-gray-500 px-5 py-2 border rounded-sm mb-4 cursor-pointer"
-          onClick={() => handleAddUser()}
+          onClick={() => HandleAddUser(user)}
         >
           Submit
         </button>
