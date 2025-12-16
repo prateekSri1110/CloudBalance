@@ -1,9 +1,9 @@
-import { colors, otherStyle } from "../../styles";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import { NavLink } from "react-router-dom";
 import Dashboard from "@mui/icons-material/Dashboard";
 import Partner from "@mui/icons-material/Handshake";
 import Module from "@mui/icons-material/ViewModule";
+import { colors, otherStyle } from "../../../Utils/styles";
 
 const Sidebar = ({ slide }) => {
   return (

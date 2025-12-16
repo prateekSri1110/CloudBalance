@@ -1,9 +1,24 @@
 import { createStore } from "redux";
 
+let parsedUser = null;
+const storedUser = sessionStorage.getItem("userData");
+
+try {
+  parsedUser = storedUser ? JSON.parse(storedUser) : null;
+} catch (error) {
+  console.warn(
+    "Invalid userData in sessionStorage:",
+    error,
+    " *** ",
+    storedUser
+  );
+  parsedUser = null;
+}
+
 const initalState = {
   slide: false,
-  isLoggedIn: localStorage.getItem("isLoggedIn"),
-  user: { name: "Prateek Srivastava", email: "", password: "" },
+  isLoggedIn: sessionStorage.getItem("isLoggedIn") === "true",
+  user: parsedUser,
 };
 
 function reducer(state = initalState, action) {

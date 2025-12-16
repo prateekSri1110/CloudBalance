@@ -4,6 +4,7 @@ import axios from "axios";
 
 export const AddUserstoDB = () => {
   const [data, setData] = useState([]);
+  const port = import.meta.env.VITE_API_PORT;
 
   useEffect(() => {
     const updatedData = usersData?.map((item) => ({
@@ -20,12 +21,13 @@ export const AddUserstoDB = () => {
     const addUsers = async () => {
       for (const user of data) {
         try {
-          const res = await axios.post("http://localhost:8080/users/add", {
+          const res = await axios.post(`http://localhost:${port}/users/add`, {
             firstName: user.firstName,
             lastName: user.lastName,
             emailId: user.email,
             role: user.role,
             lastLogin: user.lastLogin,
+            password: user.password,
             active: false,
           });
           console.log("User added:", res.data);

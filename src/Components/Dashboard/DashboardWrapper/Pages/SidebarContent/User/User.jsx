@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { colors } from "../../../../styles";
 import AddIcon from "@mui/icons-material/Add";
 import ToggleOff from "@mui/icons-material/ToggleOff";
 import ToggleOn from "@mui/icons-material/ToggleOn";
@@ -11,6 +10,7 @@ import Reset from "@mui/icons-material/RotateLeft";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Protected } from "../../../../../Protected";
 import { ActiveUser, HandleToggle, DeleteUser } from "./UserLogics/userLogic";
+import { colors } from "../../../../../Utils/styles";
 
 const User = () => {
   const navigate = useNavigate();
@@ -19,11 +19,14 @@ const User = () => {
   const [active, setActive] = useState(true);
   const [update, setUpdate] = useState(true);
 
+  const port = import.meta.env.VITE_API_PORT;
+  // console.log(port);
+
   useEffect(() => {
     const getUsers = async () => {
       try {
         await axios
-          .get("http://localhost:8080/users")
+          .get(`http://localhost:${port}/users/allUsers`)
           .then((res) => setData(res.data));
       } catch (e) {
         e.printStackTrace();
@@ -37,12 +40,11 @@ const User = () => {
     setActiveData(activeUsers);
   }, [data]);
 
-  // console.log(data);
+  console.log(data);
   // console.log(activeData);
 
   return (
     <div className="w-3/4 p-2">
-      <Protected />
       <h1 className="font-bold text-2xl mb-5">Users</h1>
 
       <div className="bg-white p-5 w-full overflow-auto shadow rounded-md">
@@ -64,17 +66,15 @@ const User = () => {
           <div>
             <div className="border border-[#0a3ca2] flex items-center rounded-full px-2 py-1">
               <button
-                className={`px-4 py-2 rounded-full font-medium transition-all ${
-                  !active ? "bg-[#0a3ca2] text-white" : "text-[#0a3ca2]-800"
-                }`}
+                className={`px-4 py-2 rounded-full font-medium transition-all ${!active ? "bg-[#0a3ca2] text-white" : "text-[#0a3ca2]-800"
+                  }`}
                 onClick={() => setActive(!active)}
               >
                 Active ({ActiveUser(data)})
               </button>
               <button
-                className={`px-4 py-2 rounded-full font-medium transition-all ${
-                  active ? "bg-[#0a3ca2] text-white" : "text-[#0a3ca2]-800"
-                }`}
+                className={`px-4 py-2 rounded-full font-medium transition-all ${active ? "bg-[#0a3ca2] text-white" : "text-[#0a3ca2]-800"
+                  }`}
                 onClick={() => setActive(!active)}
               >
                 All ({data.length})
@@ -96,7 +96,7 @@ const User = () => {
           </thead>
 
           <tbody>
-            {(!active ? activeData : data).map((user) => (
+            {(!active ? activeData : data).map((user, index) => (
               <tr key={user.id} className="even:bg-white odd:bg-gray-100">
                 <td className="px-4 py-2">{user.firstName}</td>
                 <td className="px-4 py-2">{user.lastName}</td>
@@ -123,9 +123,24 @@ const User = () => {
                         <ToggleOff fontSize="large" />
                       )}
                     </button>
-                    <button>
-                      <Edit style={{ color: colors.bgCol }} />
+                    <button
+                      onClick={() =>
+                        navigate("addUser", {
+                          state: {
+                            firstName: user.firstName,
+                            lastName: user.lastName,
+                            emailId: user.emailId,
+                            role: user.role,
+                          },
+                        })
+                      }
+                    >
+                      <Edit
+                        style={{ color: colors.bgCol, cursor: "pointer" }}
+                      />
                     </button>
+
+                    {/* delete */}
                     <button
                       onClick={() =>
                         DeleteUser(user.emailId, { update, setUpdate })
@@ -133,9 +148,10 @@ const User = () => {
                     >
                       <DeleteIcon style={{ color: colors.bgCol }} />
                     </button>
-                    <button className="bg-[#0a3ca2] text-white px-2 rounded hover:shadow-lg">
+
+                    {/* <button className="bg-[#0a3ca2] text-white px-2 rounded hover:shadow-lg">
                       Promote <ArrowUp style={{ color: "white" }} />{" "}
-                    </button>
+                    </button> */}
                   </div>
                 </td>
               </tr>

@@ -3,20 +3,19 @@ import MenuIcon from "@mui/icons-material/Menu";
 import User from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { colors } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { colors } from "../Utils/styles";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { username, slide } = useSelector((state) => ({
-    username: state.user.name,
+    username: state.user.firstName + " " + state.user.lastName,
     slide: state.slide,
   }));
-
-  console.log();
+  // console.log(username);
 
   const setSlide = () => {
     dispatch({ type: "Slide", payload: !slide });
@@ -41,8 +40,7 @@ const Navbar = () => {
                   }}
                 >
                   <MenuIcon style={{ color: colors.bgCol }} fontSize="large" />
-                </button>{" "}
-                {/* <Sidebar slide={slide} setSlide={setSlide} /> */}
+                </button>
               </div>
             </div>
 
@@ -68,7 +66,7 @@ const Navbar = () => {
               <div className="px-2 py-5">
                 <button
                   onClick={() => {
-                    localStorage.setItem("isLoggedIn", false);
+                    sessionStorage.clear();
                     navigate("/login");
                   }}
                   className="p-1 hover:shadow-xl font-medium border rounded cursor-pointer"

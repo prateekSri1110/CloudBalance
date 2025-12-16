@@ -7,6 +7,7 @@ export const usersData = [
     role: "admin",
     lastLogin: "2025-01-20 10:14 AM",
     actions: "",
+    password: "a12345",
   },
   {
     id: 2,
@@ -16,6 +17,7 @@ export const usersData = [
     role: "customer",
     lastLogin: "2025-01-19 05:43 PM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 3,
@@ -25,6 +27,7 @@ export const usersData = [
     role: "read-only",
     lastLogin: "2025-01-18 11:12 AM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 4,
@@ -34,6 +37,7 @@ export const usersData = [
     role: "customer",
     lastLogin: "2025-01-22 03:22 PM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 5,
@@ -43,6 +47,7 @@ export const usersData = [
     role: "admin",
     lastLogin: "2025-01-21 08:31 PM",
     actions: "edit/delete",
+    password: "a12345",
   },
 
   {
@@ -53,6 +58,7 @@ export const usersData = [
     role: "customer",
     lastLogin: "2025-01-10 09:55 AM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 7,
@@ -62,6 +68,7 @@ export const usersData = [
     role: "read-only",
     lastLogin: "2025-01-08 07:10 PM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 8,
@@ -71,6 +78,7 @@ export const usersData = [
     role: "admin",
     lastLogin: "2025-01-26 04:44 PM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 9,
@@ -80,6 +88,7 @@ export const usersData = [
     role: "customer",
     lastLogin: "2025-01-25 12:22 PM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 10,
@@ -89,6 +98,7 @@ export const usersData = [
     role: "read-only",
     lastLogin: "2025-01-11 06:50 AM",
     actions: "edit/delete",
+    password: "a12345",
   },
 
   {
@@ -99,6 +109,7 @@ export const usersData = [
     role: "customer",
     lastLogin: "2025-01-09 02:40 PM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 12,
@@ -108,6 +119,7 @@ export const usersData = [
     role: "read-only",
     lastLogin: "2025-01-12 11:33 AM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 13,
@@ -117,6 +129,7 @@ export const usersData = [
     role: "customer",
     lastLogin: "2025-01-27 09:21 PM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 14,
@@ -126,6 +139,7 @@ export const usersData = [
     role: "admin",
     lastLogin: "2025-01-28 03:00 PM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 15,
@@ -135,6 +149,7 @@ export const usersData = [
     role: "read-only",
     lastLogin: "2025-01-07 01:45 PM",
     actions: "edit/delete",
+    password: "a12345",
   },
 
   {
@@ -145,6 +160,7 @@ export const usersData = [
     role: "customer",
     lastLogin: "2025-01-17 10:50 AM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 17,
@@ -154,6 +170,7 @@ export const usersData = [
     role: "admin",
     lastLogin: "2025-01-20 06:05 PM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 18,
@@ -163,6 +180,7 @@ export const usersData = [
     role: "read-only",
     lastLogin: "2025-01-23 10:40 AM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 19,
@@ -172,6 +190,7 @@ export const usersData = [
     role: "customer",
     lastLogin: "2025-01-16 07:15 PM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 20,
@@ -181,6 +200,7 @@ export const usersData = [
     role: "admin",
     lastLogin: "2025-01-29 08:10 PM",
     actions: "edit/delete",
+    password: "a12345",
   },
 
   {
@@ -191,6 +211,7 @@ export const usersData = [
     role: "customer",
     lastLogin: "2025-01-05 09:25 AM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 22,
@@ -200,6 +221,7 @@ export const usersData = [
     role: "read-only",
     lastLogin: "2025-01-14 12:55 PM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 23,
@@ -209,6 +231,7 @@ export const usersData = [
     role: "customer",
     lastLogin: "2025-01-18 06:30 PM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 24,
@@ -218,6 +241,7 @@ export const usersData = [
     role: "admin",
     lastLogin: "2025-01-26 01:18 PM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 25,
@@ -227,6 +251,7 @@ export const usersData = [
     role: "customer",
     lastLogin: "2025-01-23 04:45 PM",
     actions: "edit/delete",
+    password: "a12345",
   },
 
   {
@@ -237,6 +262,7 @@ export const usersData = [
     role: "admin",
     lastLogin: "2025-01-28 09:50 AM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 27,
@@ -246,6 +272,7 @@ export const usersData = [
     role: "read-only",
     lastLogin: "2025-01-22 11:00 AM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 28,
@@ -255,6 +282,7 @@ export const usersData = [
     role: "customer",
     lastLogin: "2025-01-20 05:32 PM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 29,
@@ -264,6 +292,7 @@ export const usersData = [
     role: "admin",
     lastLogin: "2025-01-19 10:12 AM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 30,
@@ -273,6 +302,7 @@ export const usersData = [
     role: "customer",
     lastLogin: "2025-01-17 07:44 PM",
     actions: "edit/delete",
+    password: "a12345",
   },
 
   {
@@ -283,6 +313,7 @@ export const usersData = [
     role: "read-only",
     lastLogin: "2025-01-09 09:18 AM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 32,
@@ -292,6 +323,7 @@ export const usersData = [
     role: "customer",
     lastLogin: "2025-01-13 04:20 PM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 33,
@@ -301,6 +333,7 @@ export const usersData = [
     role: "admin",
     lastLogin: "2025-01-27 01:10 PM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 34,
@@ -310,6 +343,7 @@ export const usersData = [
     role: "customer",
     lastLogin: "2025-01-24 06:33 PM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 35,
@@ -319,6 +353,7 @@ export const usersData = [
     role: "read-only",
     lastLogin: "2025-01-15 08:22 AM",
     actions: "edit/delete",
+    password: "a12345",
   },
 
   {
@@ -329,6 +364,7 @@ export const usersData = [
     role: "admin",
     lastLogin: "2025-01-29 02:45 PM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 37,
@@ -338,6 +374,7 @@ export const usersData = [
     role: "customer",
     lastLogin: "2025-01-22 11:37 AM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 38,
@@ -347,6 +384,7 @@ export const usersData = [
     role: "read-only",
     lastLogin: "2025-01-21 05:17 PM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 39,
@@ -356,6 +394,7 @@ export const usersData = [
     role: "customer",
     lastLogin: "2025-01-18 03:50 PM",
     actions: "edit/delete",
+    password: "a12345",
   },
   {
     id: 40,
@@ -365,5 +404,6 @@ export const usersData = [
     role: "admin",
     lastLogin: "2025-01-25 09:28 AM",
     actions: "edit/delete",
+    password: "a12345",
   },
 ];

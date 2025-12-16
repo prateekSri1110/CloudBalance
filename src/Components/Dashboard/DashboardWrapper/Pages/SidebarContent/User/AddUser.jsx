@@ -1,7 +1,8 @@
-import { colors } from "../../../../styles";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
+import { colors } from "../../../../../Utils/styles";
+import { toast } from "react-toastify";
 
 const AddUser = () => {
   const navigate = useNavigate();
@@ -9,25 +10,63 @@ const AddUser = () => {
   const [lastName, setLastName] = useState("");
   const [emailId, setEmailId] = useState("");
   const [role, setRole] = useState("");
+  const [password, setPassword] = useState("");
+  const [updateState, setUpdateState] = useState({});
+  const port = import.meta.env.VITE_API_PORT;
 
-  const user = {
-    firstName: firstName,
-    lastName: lastName,
-    emailId: emailId,
-    role: role,
-  };
+  const updateUser = useLocation();
+  const memoizedState = useMemo(() => {
+    return updateUser?.state ? updateUser.state : null;
+  }, [updateUser]);
 
-  const HandleAddUser = async (user) => {
+  useEffect(() => {
+    setUpdateState(memoizedState);
+  }, [memoizedState]);
+
+  useEffect(() => {
+    if (updateState != null) {
+      setFirstName(updateState.firstName);
+      setLastName(updateState.lastName);
+      setEmailId(updateState.emailId);
+      setRole(updateState.role);
+    }
+  }, [updateState]);
+
+  // console.log(updateState);
+  // console.log(updateUser.state ? updateUser.state.emailId : null);
+
+  const HandleAddUser = async () => {
     try {
       await axios
-        .post("http://localhost:8080/users/add", {
-          firstName: user.firstName,
-          lastName: user.lastName,
-          emailId: user.emailId,
-          role: user.role,
+        .post(`http://localhost:${port}/users/add`, {
+          firstName,
+          lastName,
+          emailId,
+          role,
+          password,
         })
         .then(() => {
-          alert("User Added!");
+          toast("User Added!");
+          navigate("/dashboard/users");
+        })
+        .catch((err) => alert(err));
+    } catch (e) {
+      e.printStackTrace();
+      console.log("Error :", e);
+    }
+  };
+
+  const HandleUpdateUser = async () => {
+    try {
+      await axios
+        .put("http://localhost:8080/users/updateUser", {
+          firstName,
+          lastName,
+          emailId,
+          role,
+        })
+        .then(() => {
+          toast("User Updated!");
           navigate("/dashboard/users");
         })
         .catch((err) => alert(err));
@@ -39,7 +78,9 @@ const AddUser = () => {
 
   return (
     <div className="p-5 w-2/3 bg-white-400">
-      <h1 className="text-2xl font-bold mb-4">Add New User</h1>
+      <h1 className="text-2xl font-bold mb-4">
+        {updateState ? "Update" : "Add"} New User
+      </h1>
       <hr />
       <div className="p-5 text-sm bg-white mt-5">
         <form className="form">
@@ -74,6 +115,7 @@ const AddUser = () => {
                 placeholder="Enter Email"
                 value={emailId}
                 onChange={(e) => setEmailId(e.target.value)}
+                readOnly={updateState ? true : false}
               />
             </div>
             <div className="mb-5 ml-5">
@@ -86,10 +128,22 @@ const AddUser = () => {
                 onChange={(e) => setRole(e.target.value)}
               >
                 <option value=""> Select Role</option>
-                <option value="Admin">Admin</option>
-                <option value="Read-Only">Read-Only</option>
-                <option value="Customer">Customer</option>
+                <option value="Admin">ADMIN</option>
+                <option value="Read-Only">READONLY</option>
+                <option value="Customer">CUSTOMER</option>
               </select>
+            </div>
+          </div>
+          <div className="flex">
+            <div className="mb-5">
+              <label className="mb-5">Password</label>
+              <input
+                type="password"
+                className="block border text-sm px-5 py-3 w-full rounded border border-blue-200"
+                placeholder="Enter Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
           </div>
         </form>
@@ -106,7 +160,7 @@ const AddUser = () => {
         </button>
         <button
           className="text-white font-bold bg-gray-500 px-5 py-2 border rounded-sm mb-4 cursor-pointer"
-          onClick={() => HandleAddUser(user)}
+          onClick={() => (updateState ? HandleUpdateUser() : HandleAddUser())}
         >
           Submit
         </button>

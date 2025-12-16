@@ -6,10 +6,11 @@ import AWSservice from "./Components/Dashboard/DashboardWrapper/Pages/SidebarCon
 import Onboarding from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/Onboarding.jsx";
 import User from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/User/User.jsx";
 import AddUser from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/User/AddUser.jsx";
-import CostExplorer from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/CostExplorer.jsx";
 import { Protected } from "./Components/Protected.jsx";
 import Error from "./Components/Dashboard/DashboardWrapper/Pages/Error.jsx";
+import CostExplorer from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/CostExplorer/CostExplorer.jsx";
 // import { AddUserstoDB } from "./Components/Data/addUserstoDB.jsx";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -39,6 +40,8 @@ function App() {
         {/* Catch all */}
         <Route path="*" element={<Error />} />
       </Routes>
+
+      <ToastContainer position="top-right" />
     </div>
   );
 }

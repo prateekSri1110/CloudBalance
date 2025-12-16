@@ -1,25 +1,53 @@
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/cloudBalance.png";
-import { useState } from "react";
+import { useRef } from "react";
+import axios, { AxiosHeaders } from "axios";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
+  const emailId = useRef();
+  const password = useRef();
+  const port = import.meta.env.VITE_API_PORT;
+  console.log(port);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // console.log("rerender");
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log(email);
-    console.log(password);
 
-    if (
-      localStorage.getItem("email") == email &&
-      localStorage.getItem("password") == password
-    ) {
-      localStorage.setItem("isLoggedIn", true);
-      navigate("/dashboard/users");
-    } else alert("email or password is incorrect!");
+    if (!emailId.current.value) {
+      toast.error("Email is required");
+      return;
+    }
+    if (!password.current.value) {
+      toast.error("Password is required");
+      return;
+    }
+
+    try {
+      const res = await axios.post(
+        `http://localhost:${port}/users/login`,
+        {
+          emailId: emailId.current.value,
+          password: password.current.value,
+        },
+      );
+
+      console.log("*** res", res.data);
+
+      sessionStorage.setItem("userData", JSON.stringify(res.data));
+      sessionStorage.setItem("isLoggedIn", "true");
+      toast.success("Login Successful!");
+
+      setTimeout(() => {
+        navigate("/dashboard/users");
+      }, 300);
+    } catch (err) {
+      console.error("Login error:", err);
+      const message = err?.response?.data || "Invalid email or password";
+      toast.error(message);
+    }
   };
 
   return (
@@ -33,14 +61,12 @@ const Login = () => {
           <label style={{ color: colors.main }}>Email</label>
 
           <input
+            ref={emailId}
             type="email"
-            className="block border text-lg px-5 py-3 w-full rounded
-              "
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
+            name="emailId"
+            className="block border text-lg px-5 py-3 w-full rounded"
             placeholder="Email"
+            autoComplete="current-email"
           />
         </div>
 
@@ -48,13 +74,11 @@ const Login = () => {
           <label style={{ color: colors.main }}>Password</label>
 
           <input
+            ref={password}
             type="password"
-            className="block border text-lg px-5 py-3 w-full rounded
-              "
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
+            name="password"
+            className="block border text-lg px-5 py-3 w-full rounded"
+            autoComplete="current-password"
             placeholder="Password"
           />
         </div>
