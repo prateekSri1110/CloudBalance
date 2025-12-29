@@ -1,17 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/cloudBalance.png";
 import { useRef } from "react";
-import axios, { AxiosHeaders } from "axios";
+import axios from "axios";
 import { toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
+
   const emailId = useRef();
   const password = useRef();
-  const port = import.meta.env.VITE_API_PORT;
-  console.log(port);
 
-  // console.log("rerender");
+  console.log("rerender");
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -26,19 +25,28 @@ const Login = () => {
     }
 
     try {
-      const res = await axios.post(
-        `http://localhost:${port}/users/login`,
+      const res = await axios.post("http://localhost:8080/login",
         {
           emailId: emailId.current.value,
           password: password.current.value,
         },
       );
 
-      console.log("*** res", res.data);
+      console.log("*** res", res);
+      const user = {
+        name: res.data.name,
+        email: res.data.emailId,
+        role: res.data.role
+      }
 
-      sessionStorage.setItem("userData", JSON.stringify(res.data));
-      sessionStorage.setItem("isLoggedIn", "true");
+      console.log(user);
+
+
       toast.success("Login Successful!");
+
+      localStorage.setItem("user", JSON.stringify(user))
+      localStorage.setItem("token", res.data.token)
+      localStorage.setItem("isAuthenticated", true)
 
       setTimeout(() => {
         navigate("/dashboard/users");

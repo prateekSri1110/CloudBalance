@@ -1,50 +1,42 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useMemo, useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
 import { colors } from "../../../../../Utils/styles";
 import { toast } from "react-toastify";
+import api from "../../../../../Utils/axios";
 
 const AddUser = () => {
   const navigate = useNavigate();
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [emailId, setEmailId] = useState("");
-  const [role, setRole] = useState("");
-  const [password, setPassword] = useState("");
-  const [updateState, setUpdateState] = useState({});
-  const port = import.meta.env.VITE_API_PORT;
 
-  const updateUser = useLocation();
-  const memoizedState = useMemo(() => {
-    return updateUser?.state ? updateUser.state : null;
-  }, [updateUser]);
+  const updateState = useLocation();
+  const isUpdate = updateState.state;
 
-  useEffect(() => {
-    setUpdateState(memoizedState);
-  }, [memoizedState]);
+  const [form, setForm] = useState(() => ({
+    firstName: updateState.state?.firstName ?? "",
+    lastName: updateState.state?.lastName ?? "",
+    emailId: updateState.state?.emailId ?? "",
+    role: updateState.state?.role ?? "",
+    password: updateState.state?.password ?? ""
+  }));
 
-  useEffect(() => {
-    if (updateState != null) {
-      setFirstName(updateState.firstName);
-      setLastName(updateState.lastName);
-      setEmailId(updateState.emailId);
-      setRole(updateState.role);
-    }
-  }, [updateState]);
+  const isDisabled =
+    !form.firstName.trim() ||
+    !form.lastName.trim() ||
+    !form.emailId.trim() ||
+    !form.role.trim() ||
+    (!isUpdate && !form.password.trim());
 
-  // console.log(updateState);
-  // console.log(updateUser.state ? updateUser.state.emailId : null);
 
   const HandleAddUser = async () => {
+    console.log(form);
+
     try {
-      await axios
-        .post(`http://localhost:${port}/users/add`, {
-          firstName,
-          lastName,
-          emailId,
-          role,
-          password,
-        })
+      await api.post(``, {
+        firstName: form.firstName,
+        lastName: form.lastName,
+        role: form.role,
+        emailId: form.emailId,
+        password: form.password,
+      })
         .then(() => {
           toast("User Added!");
           navigate("/dashboard/users");
@@ -58,13 +50,7 @@ const AddUser = () => {
 
   const HandleUpdateUser = async () => {
     try {
-      await axios
-        .put("http://localhost:8080/users/updateUser", {
-          firstName,
-          lastName,
-          emailId,
-          role,
-        })
+      await api.put(``, form)
         .then(() => {
           toast("User Updated!");
           navigate("/dashboard/users");
@@ -77,9 +63,9 @@ const AddUser = () => {
   };
 
   return (
-    <div className="p-5 w-2/3 bg-white-400">
+    <div className="p-5 bg-white-400">
       <h1 className="text-2xl font-bold mb-4">
-        {updateState ? "Update" : "Add"} New User
+        {isUpdate ? "Update" : "Add"} New User
       </h1>
       <hr />
       <div className="p-5 text-sm bg-white mt-5">
@@ -91,8 +77,8 @@ const AddUser = () => {
                 type="text"
                 className="block border text-sm  px-5 py-3 w-full rounded border border-blue-200"
                 placeholder="Enter First Name"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                value={form.firstName}
+                onChange={(e) => setForm(prev => ({ ...prev, firstName: e.target.value }))}
               />
             </div>
             <div className="mb-5 ml-5">
@@ -101,8 +87,8 @@ const AddUser = () => {
                 type="text"
                 className="block border text-sm px-5 py-3 w-full rounded border border-blue-200"
                 placeholder="Enter Last Name"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
+                value={form.lastName}
+                onChange={(e) => setForm(prev => ({ ...prev, lastName: e.target.value }))}
               />
             </div>
           </div>
@@ -113,9 +99,9 @@ const AddUser = () => {
                 type="email"
                 className="block border text-sm px-5 py-3 w-full rounded border border-blue-200"
                 placeholder="Enter Email"
-                value={emailId}
-                onChange={(e) => setEmailId(e.target.value)}
-                readOnly={updateState ? true : false}
+                value={form.emailId}
+                onChange={(e) => setForm(prev => ({ ...prev, emailId: e.target.value }))}
+                readOnly={isUpdate ? true : false}
               />
             </div>
             <div className="mb-5 ml-5">
@@ -124,28 +110,28 @@ const AddUser = () => {
               <select
                 className="block border text-sm text-gray-500 px-5 py-3 w-full rounded border border-blue-200"
                 style={{ width: "245px" }}
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
+                value={form.role}
+                onChange={(e) => setForm(prev => ({ ...prev, role: e.target.value }))}
               >
                 <option value=""> Select Role</option>
-                <option value="Admin">ADMIN</option>
-                <option value="Read-Only">READONLY</option>
-                <option value="Customer">CUSTOMER</option>
+                <option value="ADMIN">ADMIN</option>
+                <option value="READONLY">READONLY</option>
+                <option value="CUSTOMER">CUSTOMER</option>
               </select>
             </div>
           </div>
-          <div className="flex">
+          {!updateState.state ? (<div className="flex">
             <div className="mb-5">
               <label className="mb-5">Password</label>
               <input
                 type="password"
                 className="block border text-sm px-5 py-3 w-full rounded border border-blue-200"
                 placeholder="Enter Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={form.password}
+                onChange={(e) => setForm(prev => ({ ...prev, password: e.target.value }))}
               />
             </div>
-          </div>
+          </div>) : (null)}
         </form>
       </div>
       <div
@@ -159,13 +145,16 @@ const AddUser = () => {
           Cancel
         </button>
         <button
-          className="text-white font-bold bg-gray-500 px-5 py-2 border rounded-sm mb-4 cursor-pointer"
-          onClick={() => (updateState ? HandleUpdateUser() : HandleAddUser())}
+          className={`text-white font-bold ${isDisabled ? "bg-gray-500" : "bg-blue-700"} px-5 py-2 border rounded-sm mb-4 cursor-pointer`}
+          onClick={() => {
+            (isUpdate ? HandleUpdateUser() : HandleAddUser())
+          }}
+          disabled={isDisabled}
         >
           Submit
         </button>
       </div>
-    </div>
+    </div >
   );
 };
 

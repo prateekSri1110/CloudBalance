@@ -1,22 +1,18 @@
-import axios from "axios";
-const port = import.meta.env.VITE_API_PORT;
+import { toast } from "react-toastify";
+import api from "../../../../../../Utils/axios";
 
 export const ActiveUser = (data) => {
   return data.reduce((count, item) => (item.active ? count + 1 : count), 0);
 };
 
-export const HandleToggle = (emailId, { update, setUpdate }) => {
-  axios.put(`http://localhost:${port}/users/updateStatus?emailId=${emailId}`);
-  setUpdate(!update);
-  console.log("status ", emailId);
+export const HandleToggle = (emailId) => {
+  api.put(`/status`, null, { params: { emailId: emailId } });
 };
 
-export const DeleteUser = (emailId, { update, setUpdate }) => {
-  axios
-    .delete(`http://localhost:${port}/users/deleteUser`, {
-      params: { emailId: emailId },
-    })
-    .then(() => alert("User Deleted!"))
+export const DeleteUser = (emailId) => {
+  api.delete(``, {
+    params: { emailId: emailId },
+  })
+    .then(() => toast("User Deleted!"))
     .catch((err) => console.log("Error!", err));
-  setUpdate(!update);
 };

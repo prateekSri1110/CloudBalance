@@ -1,18 +1,21 @@
 import { useState } from "react";
 import { colors, fontColor } from "../../../../../Utils/styles.jsx";
 import TuneIcon from '@mui/icons-material/Tune';
-import CostChart from "./CostChart.jsx";
 import ChartAndfilters from "./chartAndfilter.jsx";
+import Breadcrumb from "../../../../../Utils/breadcrumbs.jsx";
 
 const CostExplorer = () => {
-
-  const types = ["Service", "Instance Type", "Account ID", "Usage Type", "Platform", "Region", "Usage Type Group", "Purchase Option", "API Operation", "Resource", "Tags", "Charge Type", "Availabilityzone"];
-
-
+  const [filterOn, setFilterOn] = useState(false);
   const [active, setActive] = useState("Service");
+
+  const types = ["Service", "Instance Type", "Account ID", "Usage Type", "Platform", "Region", "Usage Type Group", "Purchase Option", "API Operation", "Resource", "Tags", "Charge Type", "Availability Zone"];
+  const visibleTypes = types.slice(0, 5);
+  const hiddenTypes = types.slice(5);
+
 
   return (
     <>
+      <Breadcrumb />
       <div className="major w-full p-2">
         <div className="flex justify-between items-center mb-4">
           <div>
@@ -23,9 +26,7 @@ const CostExplorer = () => {
           </div>
 
           <div>
-            <button
-              className={`border-1 px-3 py-1 text-[${colors.bgCol}] rounded`}
-            >
+            <button className={`border-1 px-3 py-1 text-[${colors.bgCol}] rounded`}>
               Recent Reports
             </button>
           </div>
@@ -38,28 +39,48 @@ const CostExplorer = () => {
           <div className="container flex gap-2">
             <span className="label font-bold text-sm mt-2">Group By :</span>
             <button
-              className={`text-xs bg-[${colors.bgCol}] p-[3px] text-white border border-gray-200 font-bold rounded`}
+              className={`text-xs bg-[${colors.bgCol}] p-1 text-white border border-gray-200 font-bold rounded`}
             >
               {active}
             </button>
             <span>|</span>
-            {types.map((item) => (
-              <button
-                key={item}
-                className={`text-xs text-[${colors.bgCol}] px-[6px] bg-white border border-gray-200 font-bold rounded cursor-pointer`}
-                onClick={() => setActive(item)}
-              >
-                {item}
-              </button>
-            ))}
+
+            <div className="flex gap-2 items-center">
+              {/* First 5 */}
+              {visibleTypes.map(item => (
+                <button
+                  key={item}
+                  className={`text-xs p-2 bg-white border border-gray-200 font-bold rounded cursor-pointer`}
+                  style={{ color: colors.bgCol }}
+                  onClick={() => setActive(item)}
+                >
+                  {item}
+                </button>
+              ))}
+
+              {/* Dropdown*/}
+              {hiddenTypes.length > 0 && (
+                <select className="text-xs p-2 w-20 font-bold cursor-pointer" style={{ color: colors.bgCol }} defaultValue="" onChange={(e) => setActive(e.target.value)}>
+                  <option value="" disabled>
+                    More
+                  </option>
+                  {hiddenTypes.map(item => (
+                    <option key={item} value={item}>
+                      {item}
+                    </option>
+                  ))}
+                </select>
+              )}
+            </div>
+
           </div>
 
           {/* chart filter */}
           <div>
-            <TuneIcon fontSize="large" color={colors.bgCol} className={`p-[2px] bg-[${colors.bgCol}] text-white cursor-pointer rounded`} />
+            <TuneIcon fontSize="large" color={colors.bgCol} className={`p-[2px] bg-[${colors.bgCol}] text-white cursor-pointer rounded`} onClick={() => setFilterOn(!filterOn)} />
           </div>
         </div>
-        <ChartAndfilters />
+        <ChartAndfilters side={filterOn} filter={types} />
       </div>
     </>
   );

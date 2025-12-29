@@ -7,16 +7,17 @@ const Dashboard = () => {
   const slide = useSelector((state) => state.slide);
 
   return (
-    <div>
-      <div className="fixed  top-0 left-0 w-full z-50 bg-white shadow-md">
-        <Navbar />
-      </div>
-      <div className="flex pt-20">
-        <Sidebar slide={slide} />
-        <div className="flex-1 bg-gray-50">
-          <Content />
-        </div>
-      </div>
+    <div className="w-full overflow-x-hidden">
+      {/* Navbar */}
+      <Navbar />
+
+      {/* Sidebar */}
+      <Sidebar slide={slide} />
+
+      {/* Main Content */}
+      <main className={`pt-20 transition-all duration-300 bg-gray-50 min-h-screen ${slide ? "ml-[280px]" : "ml-[100px]"}`}>
+        <Content />
+      </main>
     </div>
   );
 };

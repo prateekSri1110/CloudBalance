@@ -1,101 +1,80 @@
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import PartnerIcon from "@mui/icons-material/Handshake";
 import { NavLink } from "react-router-dom";
-import Dashboard from "@mui/icons-material/Dashboard";
-import Partner from "@mui/icons-material/Handshake";
-import Module from "@mui/icons-material/ViewModule";
-import { colors, otherStyle } from "../../../Utils/styles";
+import aws from "../../../../assets/aws.svg";
+import { colors } from "../../../Utils/styles";
 
 const Sidebar = ({ slide }) => {
   return (
-    <>
-      <div className="relative fixed left-0 p-3">
-        <div
-          className={`h-[995px] shadow-xl bg-white transition-transform duration-300 ${
-            slide ? "translate-x-0 w-[270px]" : "-translate-x-full w-20"
-          }`}
+    <aside
+      className={`fixed p-2 left-0 top-16 h-[calc(100vh-4rem)] bg-white shadow-xl transition-all duration-300 ${slide ? "w-[280px]" : "w-[100px]"} z-40`}
+    >
+      <ul className="pt-5 space-y-2">
+        {/* USERS */}
+        <NavLink
+          to="users"
+          className={({ isActive }) =>
+            `flex items-center p-5 hover:bg-[#f1fafe]
+             ${isActive ? "bg-[#f1fafe]" : ""}`
+          }
         >
-          <ul>
-            <NavLink
-              to="users"
-              className={({ isActive }) =>
-                `flex ${isActive ? "bg-[#f1fafe]" : ""}`
-              }
-            >
-              <li className={otherStyle.li}>
-                <PeopleAltIcon
-                  fontSize="large"
-                  style={{
-                    marginLeft: !slide ? "85px" : "",
-                    color: colors.bgCol,
-                  }}
-                />
-                <span className={`px-5 ${slide ? "" : "hidden"}`}>Users</span>
-              </li>
-            </NavLink>
-            <NavLink
-              className={({ isActive }) =>
-                `flex ${isActive ? "bg-[#f1fafe]" : ""}`
-              }
-              to="onboarding"
-            >
-              <li className={otherStyle.li}>
-                <Partner
-                  fontSize="large"
-                  style={{
-                    marginLeft: !slide ? "85px" : "",
-                    color: colors.bgCol,
-                  }}
-                />
-                <span className={`px-5 ${slide ? "" : "hidden"}`}>
-                  Onboarding
-                </span>
-              </li>
-            </NavLink>
-            <NavLink
-              className={({ isActive }) =>
-                `flex ${isActive ? "bg-[#f1fafe]" : ""}`
-              }
-              to="costexplorer"
-            >
-              <li className={otherStyle.li}>
-                <Dashboard
-                  fontSize="large"
-                  style={{
-                    marginLeft: !slide ? "85px" : "",
-                    color: colors.bgCol,
-                  }}
-                />
-                <span className={`px-5 ${slide ? "" : "hidden"}`}>
-                  Cost Explorer
-                </span>
-              </li>
-            </NavLink>
-            <NavLink
-              className={({ isActive }) =>
-                `flex ${isActive ? "bg-[#f1fafe]" : ""}`
-              }
-              to="awsservice"
-            >
-              <li className={otherStyle.li}>
-                <Module
-                  fontSize="large"
-                  style={{
-                    marginLeft: !slide ? "85px" : "",
-                    color: colors.bgCol,
-                  }}
-                />
-                <span className={`px-5 ${slide ? "" : "hidden"}`}>
-                  AWS Service
-                </span>
-              </li>
-            </NavLink>
-          </ul>
-          <button className="w-full fixed bottom-5 px-3 py-2 font-bold border-1 text-[#0a3ca2] shadow-lg">
-            Contact Us
-          </button>
-        </div>
+          <PeopleAltIcon style={{ color: colors.bgCol }} fontSize="large" />
+          <span className={`ml-4 ${slide ? "block" : "hidden"}`}>
+            Users
+          </span>
+        </NavLink>
+
+        {/* ONBOARDING */}
+        <NavLink
+          to="onboarding"
+          className={({ isActive }) =>
+            `flex items-center p-5 hover:bg-[#f1fafe]
+             ${isActive ? "bg-[#f1fafe]" : ""}`
+          }
+        >
+          <PartnerIcon style={{ color: colors.bgCol }} fontSize="large" />
+          <span className={`ml-4 ${slide ? "block" : "hidden"}`}>
+            Onboarding
+          </span>
+        </NavLink>
+
+        {/* COST EXPLORER */}
+        <NavLink
+          to="costexplorer"
+          className={({ isActive }) =>
+            `flex items-center p-5 hover:bg-[#f1fafe]
+             ${isActive ? "bg-[#f1fafe]" : ""}`
+          }
+        >
+          <DashboardIcon style={{ color: colors.bgCol }} fontSize="large" />
+          <span className={`ml-4 ${slide ? "block" : "hidden"}`}>
+            Cost Explorer
+          </span>
+        </NavLink>
+
+        {/* AWS */}
+        <NavLink
+          to="awsservice"
+          className={({ isActive }) =>
+            `flex items-center p-5 hover:bg-[#f1fafe]
+             ${isActive ? "bg-[#f1fafe]" : ""}`
+          }
+        >
+          <img src={aws} className="w-8" />
+          <span className={`ml-4 ${slide ? "block" : "hidden"}`}>
+            AWS Service
+          </span>
+        </NavLink>
+      </ul>
+
+      {/* CONTACT */}
+      <div className="absolute bottom-2 w-full p-2 px-4">
+        <button className="w-full py-2 border rounded font-bold text-[#0a3ca2] shadow-md">
+          {slide ? "Contact Us" : "📞"}
+        </button>
       </div>
-    </>
+    </aside>
   );
 };
 

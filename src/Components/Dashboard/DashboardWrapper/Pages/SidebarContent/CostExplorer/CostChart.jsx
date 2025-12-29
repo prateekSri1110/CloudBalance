@@ -1,42 +1,49 @@
-import React from "react";
-
-// Import FusionCharts library
 import FusionCharts from "fusioncharts";
-
-// Import chart type
-import Column2D from "fusioncharts/fusioncharts.charts";
-
-// Import theme
+import Charts from "fusioncharts/fusioncharts.charts";
 import FusionTheme from "fusioncharts/themes/fusioncharts.theme.fusion";
-
-// Import React wrapper
 import ReactFC from "react-fusioncharts";
 
-// Pass chart and theme as dependency
-ReactFC.fcRoot(FusionCharts, Column2D, FusionTheme);
+ReactFC.fcRoot(FusionCharts, Charts, FusionTheme);
 
-const CostChart = () => {
+const CostChart = ({ props }) => {
+  const { data, type } = props;
+  if (!data || data.length === 0) return null;
+
+  // X-axis categories (Months)
+  const categories = [
+    {
+      category: data.map(d => ({
+        label: d.month
+      }))
+    }
+  ];
+
+  const services = Object.keys(data[0]).filter(key => key !== "month");
+
+  const dataset = services.map(service => ({
+    seriesname: service,
+    data: data.map(d => ({
+      value: d[service]
+    }))
+  }));
+
   const chartConfigs = {
-    type: "column2d", // The chart type
-    width: "100%",    // Width of the chart
-    height: "400",    // Height of the chart
-    dataFormat: "json", // Data type
+    type: type,
+    width: "100%",
+    height: "500",
+    dataFormat: "json",
     dataSource: {
       chart: {
-        caption: "Sales by Region",
-        subCaption: "2025",
-        xAxisName: "Region",
-        yAxisName: "Sales (in USD)",
+        xAxisName: "Months",
+        yAxisName: "Cost (USD)",
         numberPrefix: "$",
         theme: "fusion",
+        showValues: "0",
+        legendPosition: "bottom"
       },
-      data: [
-        { label: "North", value: "10000" },
-        { label: "South", value: "15000" },
-        { label: "East", value: "12000" },
-        { label: "West", value: "18000" },
-      ],
-    },
+      categories,
+      dataset
+    }
   };
 
   return <ReactFC {...chartConfigs} />;
