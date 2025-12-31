@@ -1,8 +1,8 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 import { colors } from "../../../../../Utils/styles";
-import { toast } from "react-toastify";
-import api from "../../../../../Utils/axios";
+import Breadcrumb from "../../../../../Utils/breadcrumbs";
+import { HandleAddUser, HandleUpdateUser } from "./UserLogics/userLogic";
+import { useState } from "react";
 
 const AddUser = () => {
   const navigate = useNavigate();
@@ -25,45 +25,9 @@ const AddUser = () => {
     !form.role.trim() ||
     (!isUpdate && !form.password.trim());
 
-
-  const HandleAddUser = async () => {
-    console.log(form);
-
-    try {
-      await api.post(``, {
-        firstName: form.firstName,
-        lastName: form.lastName,
-        role: form.role,
-        emailId: form.emailId,
-        password: form.password,
-      })
-        .then(() => {
-          toast("User Added!");
-          navigate("/dashboard/users");
-        })
-        .catch((err) => alert(err));
-    } catch (e) {
-      e.printStackTrace();
-      console.log("Error :", e);
-    }
-  };
-
-  const HandleUpdateUser = async () => {
-    try {
-      await api.put(``, form)
-        .then(() => {
-          toast("User Updated!");
-          navigate("/dashboard/users");
-        })
-        .catch((err) => alert(err));
-    } catch (e) {
-      e.printStackTrace();
-      console.log("Error :", e);
-    }
-  };
-
   return (
     <div className="p-5 bg-white-400">
+      <Breadcrumb />
       <h1 className="text-2xl font-bold mb-4">
         {isUpdate ? "Update" : "Add"} New User
       </h1>
@@ -147,7 +111,11 @@ const AddUser = () => {
         <button
           className={`text-white font-bold ${isDisabled ? "bg-gray-500" : "bg-blue-700"} px-5 py-2 border rounded-sm mb-4 cursor-pointer`}
           onClick={() => {
-            (isUpdate ? HandleUpdateUser() : HandleAddUser())
+            (isUpdate ?
+              HandleUpdateUser(form).then(st => { if (st) navigate("/dashboard/users") })
+              :
+              HandleAddUser(form).then(st => { if (st) navigate("/dashboard/users") })
+            )
           }}
           disabled={isDisabled}
         >

@@ -5,8 +5,6 @@ export const usersData = [
     lastName: "Srivastava",
     email: "prateek.srivastava@CloudBalance.com",
     role: "admin",
-    lastLogin: "2025-01-20 10:14 AM",
-    actions: "",
     password: "a12345",
   },
   {
@@ -15,8 +13,7 @@ export const usersData = [
     lastName: "Kapoor",
     email: "aditi.kapoor@CloudBalance.com",
     role: "customer",
-    lastLogin: "2025-01-19 05:43 PM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -25,8 +22,7 @@ export const usersData = [
     lastName: "Verma",
     email: "rahul.verma@CloudBalance.com",
     role: "read-only",
-    lastLogin: "2025-01-18 11:12 AM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -35,8 +31,7 @@ export const usersData = [
     lastName: "Nair",
     email: "sneha.nair@CloudBalance.com",
     role: "customer",
-    lastLogin: "2025-01-22 03:22 PM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -45,8 +40,6 @@ export const usersData = [
     lastName: "Mehta",
     email: "arjun.mehta@CloudBalance.com",
     role: "admin",
-    lastLogin: "2025-01-21 08:31 PM",
-    actions: "edit/delete",
     password: "a12345",
   },
 
@@ -56,8 +49,7 @@ export const usersData = [
     lastName: "Sethi",
     email: "rohan.sethi@CloudBalance.com",
     role: "customer",
-    lastLogin: "2025-01-10 09:55 AM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -66,8 +58,7 @@ export const usersData = [
     lastName: "Malhotra",
     email: "tanvi.malhotra@CloudBalance.com",
     role: "read-only",
-    lastLogin: "2025-01-08 07:10 PM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -76,8 +67,7 @@ export const usersData = [
     lastName: "Joshi",
     email: "vikram.joshi@CloudBalance.com",
     role: "admin",
-    lastLogin: "2025-01-26 04:44 PM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -86,8 +76,7 @@ export const usersData = [
     lastName: "Arora",
     email: "kajol.arora@CloudBalance.com",
     role: "customer",
-    lastLogin: "2025-01-25 12:22 PM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -96,8 +85,7 @@ export const usersData = [
     lastName: "Rana",
     email: "adarsh.rana@CloudBalance.com",
     role: "read-only",
-    lastLogin: "2025-01-11 06:50 AM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
 
@@ -107,8 +95,7 @@ export const usersData = [
     lastName: "Sharma",
     email: "pooja.sharma@CloudBalance.com",
     role: "customer",
-    lastLogin: "2025-01-09 02:40 PM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -117,8 +104,7 @@ export const usersData = [
     lastName: "Kumar",
     email: "suresh.kumar@CloudBalance.com",
     role: "read-only",
-    lastLogin: "2025-01-12 11:33 AM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -127,8 +113,7 @@ export const usersData = [
     lastName: "Rao",
     email: "megha.rao@CloudBalance.com",
     role: "customer",
-    lastLogin: "2025-01-27 09:21 PM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -137,8 +122,7 @@ export const usersData = [
     lastName: "Patel",
     email: "ritesh.patel@CloudBalance.com",
     role: "admin",
-    lastLogin: "2025-01-28 03:00 PM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -147,8 +131,7 @@ export const usersData = [
     lastName: "Goyal",
     email: "alisha.goyal@CloudBalance.com",
     role: "read-only",
-    lastLogin: "2025-01-07 01:45 PM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
 
@@ -158,8 +141,7 @@ export const usersData = [
     lastName: "Bansal",
     email: "nikhil.bansal@CloudBalance.com",
     role: "customer",
-    lastLogin: "2025-01-17 10:50 AM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -168,8 +150,7 @@ export const usersData = [
     lastName: "Saxena",
     email: "divya.saxena@CloudBalance.com",
     role: "admin",
-    lastLogin: "2025-01-20 06:05 PM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -178,8 +159,7 @@ export const usersData = [
     lastName: "Gill",
     email: "kunal.gill@CloudBalance.com",
     role: "read-only",
-    lastLogin: "2025-01-23 10:40 AM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -188,8 +168,7 @@ export const usersData = [
     lastName: "Chauhan",
     email: "simran.chauhan@CloudBalance.com",
     role: "customer",
-    lastLogin: "2025-01-16 07:15 PM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -198,8 +177,7 @@ export const usersData = [
     lastName: "Kaushik",
     email: "aman.kaushik@CloudBalance.com",
     role: "admin",
-    lastLogin: "2025-01-29 08:10 PM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
 
@@ -209,8 +187,7 @@ export const usersData = [
     lastName: "Pillai",
     email: "jyoti.pillai@CloudBalance.com",
     role: "customer",
-    lastLogin: "2025-01-05 09:25 AM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -219,8 +196,7 @@ export const usersData = [
     lastName: "Bora",
     email: "dinesh.bora@CloudBalance.com",
     role: "read-only",
-    lastLogin: "2025-01-14 12:55 PM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -229,8 +205,7 @@ export const usersData = [
     lastName: "Thakur",
     email: "harsh.thakur@CloudBalance.com",
     role: "customer",
-    lastLogin: "2025-01-18 06:30 PM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -239,8 +214,7 @@ export const usersData = [
     lastName: "Mishra",
     email: "isha.mishra@CloudBalance.com",
     role: "admin",
-    lastLogin: "2025-01-26 01:18 PM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -249,8 +223,7 @@ export const usersData = [
     lastName: "Singh",
     email: "sagar.singh@CloudBalance.com",
     role: "customer",
-    lastLogin: "2025-01-23 04:45 PM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
 
@@ -260,8 +233,7 @@ export const usersData = [
     lastName: "Joshi",
     email: "ankit.joshi@CloudBalance.com",
     role: "admin",
-    lastLogin: "2025-01-28 09:50 AM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -270,8 +242,8 @@ export const usersData = [
     lastName: "Desai",
     email: "karishma.desai@CloudBalance.com",
     role: "read-only",
-    lastLogin: "2025-01-22 11:00 AM",
-    actions: "edit/delete",
+
+
     password: "a12345",
   },
   {
@@ -280,8 +252,7 @@ export const usersData = [
     lastName: "Sinha",
     email: "bharat.sinha@CloudBalance.com",
     role: "customer",
-    lastLogin: "2025-01-20 05:32 PM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -290,8 +261,7 @@ export const usersData = [
     lastName: "Rawat",
     email: "tanya.rawat@CloudBalance.com",
     role: "admin",
-    lastLogin: "2025-01-19 10:12 AM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -300,8 +270,7 @@ export const usersData = [
     lastName: "Negi",
     email: "rohit.negi@CloudBalance.com",
     role: "customer",
-    lastLogin: "2025-01-17 07:44 PM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
 
@@ -311,8 +280,7 @@ export const usersData = [
     lastName: "Vaid",
     email: "sonia.vaid@CloudBalance.com",
     role: "read-only",
-    lastLogin: "2025-01-09 09:18 AM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -321,8 +289,7 @@ export const usersData = [
     lastName: "Pradhan",
     email: "yash.pradhan@CloudBalance.com",
     role: "customer",
-    lastLogin: "2025-01-13 04:20 PM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -331,8 +298,7 @@ export const usersData = [
     lastName: "Tyagi",
     email: "deepak.tyagi@CloudBalance.com",
     role: "admin",
-    lastLogin: "2025-01-27 01:10 PM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -341,8 +307,7 @@ export const usersData = [
     lastName: "Grewal",
     email: "muskan.grewal@CloudBalance.com",
     role: "customer",
-    lastLogin: "2025-01-24 06:33 PM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -351,8 +316,7 @@ export const usersData = [
     lastName: "Pawar",
     email: "neeraj.pawar@CloudBalance.com",
     role: "read-only",
-    lastLogin: "2025-01-15 08:22 AM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
 
@@ -362,8 +326,7 @@ export const usersData = [
     lastName: "Shah",
     email: "zara.shah@CloudBalance.com",
     role: "admin",
-    lastLogin: "2025-01-29 02:45 PM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -372,8 +335,7 @@ export const usersData = [
     lastName: "Dahiya",
     email: "paras.dahiya@CloudBalance.com",
     role: "customer",
-    lastLogin: "2025-01-22 11:37 AM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -382,8 +344,7 @@ export const usersData = [
     lastName: "Chhabra",
     email: "juhi.chhabra@CloudBalance.com",
     role: "read-only",
-    lastLogin: "2025-01-21 05:17 PM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -392,8 +353,7 @@ export const usersData = [
     lastName: "Gulati",
     email: "armaan.gulati@CloudBalance.com",
     role: "customer",
-    lastLogin: "2025-01-18 03:50 PM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
   {
@@ -402,8 +362,7 @@ export const usersData = [
     lastName: "Chopra",
     email: "reema.chopra@CloudBalance.com",
     role: "admin",
-    lastLogin: "2025-01-25 09:28 AM",
-    actions: "edit/delete",
+
     password: "a12345",
   },
 ];
