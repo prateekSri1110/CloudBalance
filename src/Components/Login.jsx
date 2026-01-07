@@ -6,11 +6,8 @@ import { toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
-
   const emailId = useRef();
   const password = useRef();
-
-  console.log("rerender");
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -41,7 +38,6 @@ const Login = () => {
 
       console.log(user);
 
-
       toast.success("Login Successful!");
 
       localStorage.setItem("user", JSON.stringify(user))
@@ -66,8 +62,7 @@ const Login = () => {
         </div>
 
         <div className="mb-5">
-          <label style={{ color: colors.main }}>Email</label>
-
+          <label style={{ color: colors.main }}>Email <span className="text-red-600">*</span></label>
           <input
             ref={emailId}
             type="email"
@@ -79,8 +74,7 @@ const Login = () => {
         </div>
 
         <div className="mb-5">
-          <label style={{ color: colors.main }}>Password</label>
-
+          <label style={{ color: colors.main }}>Password <span className="text-red-600">*</span></label>
           <input
             ref={password}
             type="password"
@@ -91,7 +85,6 @@ const Login = () => {
           />
         </div>
 
-        {/* LOGIN BUTTON */}
         <button
           className="mt-5 font-bold text-white px-4 py-4 w-full rounded-md hover:bg-blue-700"
           type="submit"

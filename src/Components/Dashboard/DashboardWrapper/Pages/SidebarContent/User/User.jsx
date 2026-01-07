@@ -11,10 +11,12 @@ import { ActiveUser, HandleToggle, DeleteUser } from "./UserLogics/userLogic";
 import { colors } from "../../../../../Utils/styles";
 import Breadcrumbs from "../../../../../Utils/breadcrumbs.jsx";
 import api from "../../../../../Utils/axios";
+import Sort from '@mui/icons-material/SwapVert';
 
 const User = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
+  const [filteringData, setFilteringData] = useState([]);
   const [activeData, setActiveData] = useState([]);
   const [active, setActive] = useState(true);
   const [update, setUpdate] = useState(true);
@@ -26,8 +28,9 @@ const User = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await api(`/allUsers`)
-        setData(res.data)
+        const res = await api(``)
+        setData(Object.values(res.data))
+        setFilteringData(Object.values(res.data))
 
         const activeUsers = res.data.filter((user) => user.active);
         setActiveData(activeUsers);
@@ -37,6 +40,11 @@ const User = () => {
     };
     fetchUsers()
   }, [update]);
+
+  function sortTable(data, sortBy) {
+    const sorted = [...data].sort((a, b) => a[sortBy].localeCompare(b[sortBy]));
+    return setFilteringData(sorted)
+  }
 
   return (
     <>
@@ -54,8 +62,8 @@ const User = () => {
               >
                 <AddIcon className="mb-1" color={colors.bgCol} /> Add New User
               </button>
-              <span className="text-gray-300 text-xl">|</span>
-              <span className="py-3 cursor-pointer">
+              <span className="text-gray-300 text-3xl px-3">|</span>
+              <span className="py-3 cursor-pointer" onClick={() => setFilteringData(data)}>
                 <Reset />
                 Reset Filters
               </span>
@@ -68,92 +76,92 @@ const User = () => {
                     } `}
                   onClick={() => setActive(active ? !active : active)}
                 >
-                  Active ({ActiveUser(data)})
+                  Active ({ActiveUser(filteringData)})
                 </button>
                 <button
                   className={`px-4 py-2 rounded-full font-medium transition-all ${active ? "bg-[#0a3ca2] text-white" : "text-[#0a3ca2]-800 cursor-pointer"
                     } `}
                   onClick={() => setActive(!active)}
                 >
-                  All ({data.length})
+                  All ({filteringData.length})
                 </button>
               </div>
             </div>
           </div>
-
-          <table className="min-w-full text-sm border border-blue-100 text-left">
-            <thead style={{ backgroundColor: colors.main }}>
-              <tr style={{ color: colors.bgCol }}>
-                <th className="px-4 py-2">First Name</th>
-                <th className="px-4 py-2">Last Name</th>
-                <th className="px-4 py-2">Email ID</th>
-                <th className="px-4 py-2">Roles</th>
-                <th className="px-4 py-2">Last Login</th>
-                <th hidden={role == "READONLY"} className="px-4 py-2">Actions</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {(!active ? activeData : data).map((user, index) => (
-                <tr key={index} className="even:bg-white odd:bg-gray-100">
-                  <td className="px-4 py-2">{user.firstName}</td>
-                  <td className="px-4 py-2">{user.lastName}</td>
-                  <td className="px-4 py-2">{user.emailId}</td>
-                  <td className="px-4 py-2">
-                    <button className="bg-blue-100 border border-1 px-2 rounded">
-                      {user.role}
-                    </button>
-                  </td>
-                  <td className="px-4 py-2 text-sm">{user.lastLogin}</td>
-                  <td className="px-4 py-2" hidden={role == "READONLY"}>
-                    <div className="flex gap-5">
-                      <button
-                        onClick={() => {
-                          HandleToggle(user.emailId)
-                          setUpdate(!update)
-                        }}
-                      >
-                        {user.active ? (
-                          <ToggleOn
-                            style={{ color: colors.bgCol, cursor: "pointer" }}
-                            fontSize="large"
-                          />
-                        ) : (
-                          <ToggleOff fontSize="large" />
-                        )}
-                      </button>
-                      <button
-                        onClick={() =>
-                          navigate("addUser", {
-                            state: {
-                              firstName: user.firstName,
-                              lastName: user.lastName,
-                              emailId: user.emailId,
-                              role: user.role,
-                            },
-                          })
-                        }
-                      >
-                        <Edit
-                          style={{ color: colors.bgCol, cursor: "pointer" }}
-                        />
-                      </button>
-
-                      {/* delete */}
-                      <button
-                        onClick={() => {
-                          DeleteUser(user.emailId)
-                          setUpdate(!update)
-                        }}
-                      >
-                        <DeleteIcon style={{ color: colors.bgCol, cursor: "pointer" }} />
-                      </button>
-                    </div>
-                  </td>
+          <div className="border border-blue-100">
+            <table className="min-w-full text-sm text-left">
+              <thead style={{ backgroundColor: colors.main }}>
+                <tr style={{ color: colors.bgCol }}>
+                  <th className="px-4 py-2 border border-white">First Name <span onClick={() => sortTable(data, "firstName")}><Sort color={colors.bgCol} /></span></th>
+                  <th className="px-4 py-2 border border-white">Last Name <span onClick={() => sortTable(data, "lastName")}><Sort color={colors.bgCol} /></span></th>
+                  <th className="px-4 py-2 border border-white">Email ID <span onClick={() => sortTable(data, "emailId")}><Sort color={colors.bgCol} /></span></th>
+                  <th className="px-4 py-2 border border-white">Roles <span onClick={() => sortTable(data, "role")}><Sort color={colors.bgCol} /></span></th>
+                  <th className="px-4 py-2 border border-white">Last Login</th>
+                  <th hidden={role == "READONLY"} className="px-4 py-2 border border-white">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {(!active ? activeData : filteringData).map((user, index) => (
+                  <tr key={index} className="even:bg-white odd:bg-gray-100">
+                    <td className="px-4 py-2">{user.firstName}</td>
+                    <td className="px-4 py-2">{user.lastName}</td>
+                    <td className="px-4 py-2">{user.emailId}</td>
+                    <td className="px-4 py-2">
+                      <button className="bg-blue-100 border border-1 px-2 rounded">
+                        {user.role}
+                      </button>
+                    </td>
+                    <td className="px-4 py-2 text-sm">{user.lastLogin}</td>
+                    <td className="px-4 py-2" hidden={role == "READONLY"}>
+                      <div className="flex gap-5">
+                        <button
+                          onClick={() => {
+                            HandleToggle(user.emailId)
+                            setUpdate(!update)
+                          }}
+                        >
+                          {user.active ? (
+                            <ToggleOn
+                              style={{ color: colors.bgCol, cursor: "pointer" }}
+                              fontSize="large"
+                            />
+                          ) : (
+                            <ToggleOff fontSize="large" />
+                          )}
+                        </button>
+                        <button
+                          onClick={() =>
+                            navigate("addUser", {
+                              state: {
+                                firstName: user.firstName,
+                                lastName: user.lastName,
+                                emailId: user.emailId,
+                                role: user.role,
+                              },
+                            })
+                          }
+                        >
+                          <Edit
+                            style={{ color: colors.bgCol, cursor: "pointer" }}
+                          />
+                        </button>
+
+                        {/* delete */}
+                        <button
+                          onClick={() => {
+                            DeleteUser(user.emailId)
+                            setUpdate(!update)
+                          }}
+                        >
+                          <DeleteIcon style={{ color: colors.bgCol, cursor: "pointer" }} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </>

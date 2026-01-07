@@ -3,7 +3,7 @@ import "./App.css";
 import Login from "./Components/Login";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import AWSservice from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/AWSservice.jsx";
-import Onboarding from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/Onboarding.jsx";
+import Onboarding from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/Onboarding/Onboarding.jsx";
 import User from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/User/User.jsx";
 import AddUser from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/User/AddUser.jsx";
 import { Protected } from "./Components/Protected.jsx";
