@@ -1,12 +1,18 @@
 import Breadcrumbs from "../../../../../Utils/breadcrumbs.jsx";
-import Copy from '@mui/icons-material/ContentCopy';
 import { colors } from "../../../../../Utils/styles.jsx";
-import TunerRole from "../../../../../../assets/tunerRole.png";
-import { useState } from "react";
 import { Button, Input, LiNum } from "../../../../../Utils/TagUtils.jsx";
+import { BoxCode } from "../../../../../Utils/compUtils.jsx";
+import CopyField from "../../../../../Utils/CopyField.jsx";
+import TunerRole from "../../../../../../assets/tunerRole.png";
+import Permission from "../../../../../../assets/permission.png";
+import Other from "../../../../../../assets/other.png";
+import { useNavigate } from "react-router-dom";
 
 const CustomerManagedPolicies = () => {
-    const policy1 = `{
+
+  const navigate = useNavigate()
+
+  const policy1 = `{
   "Version": "2012-10-17",
   "Statement": [
     {
@@ -266,7 +272,7 @@ const CustomerManagedPolicies = () => {
     }
   ]
 }`
-    const policy2 = `{
+  const policy2 = `{
   "Version": "2012-10-17",
   "Statement": [
     {
@@ -384,7 +390,7 @@ const CustomerManagedPolicies = () => {
     }
   ]
 }`
-    const policy3 = `{
+  const policy3 = `{
   "Version": "2012-10-17",
   "Statement": [
     {
@@ -452,87 +458,92 @@ const CustomerManagedPolicies = () => {
     }
   ]
 }`
-    const field = ["cktuner-CostAuditPolicy", "cktuner-SecAuditPolicy", "cktuner-TunerReadEssentials"]
+  const field = ["cktuner-CostAuditPolicy", "cktuner-SecAuditPolicy", "cktuner-TunerReadEssentials"]
 
-    const [hover, setHover] = useState(false);
+  return (
+    <>
+      <Breadcrumbs />
+      <div className="px-8 py-5">
+        <h1 className="font-bold text-3xl mb-2">Add Customer Managed Policies</h1>
+        <h2 className="mb-5">Create an Inline policy for the role by following these steps</h2>
+        <div className="p-5 bg-white rounded-lg">
 
-    const role = "CK-Tuner-Role-dev2";
-    const copyToClipboard = (text) => navigator.clipboard.writeText(text)
+          <ul className="p-2">
+            <li className="mb-8"><span><LiNum num={1} />Go to the <span className="text-blue-800 font-bold underline">Create Policy</span>Page.</span></li>
 
-    return (
-        <>
-            <Breadcrumbs />
-            <div className="px-3 py-5">
-                <h1 className="font-bold text-3xl mb-2">Add Customer Managed Policies</h1>
-                <h2 className="mb-5">Create an Inline policy for the role by following these steps</h2>
-                <div className="p-5 bg-white rounded-lg">
-                    <ul className="p-2">
-                        <li className="mb-4"><span><LiNum num={1} />Go to the <span className="text-blue-800 font-bold underline">Create Policy</span>Page</span></li>
-                        <li className="mb-4">
-                            <h2><LiNum num={2} />In the <i>Trusted entity type</i> section, select <b>Custom trust policy.</b>Replace the prefilled policy with the policy provided below -</h2>
-                            <div className="px-10">
-                                <div className={`p-2 mt-5 h-70 bg-gray-100 overflow-y-auto border border-gray-300 rounded`}>
-                                    <div>
-                                        <button className="" onClick={() => copyToClipboard(policy)}>X</button>
-                                    </div>
-                                    <pre className={`text-[${colors.bgCol}] text-xs font-bold`}>
-                                        {policy1}
-                                        {/* hover:bg-[${colors.bgCol}] */}
-                                    </pre>
-                                </div>
-                            </div>
-                        </li>
+            <li className="mb-8">
+              <h2><LiNum num={2} />Click on the <b>JSON</b> tab and paste the following policy and click on Next:</h2>
+              <BoxCode policy={policy1} />
+            </li>
 
-                        {/* bg-[${colors.bgCol}] */}
-                        <li className="mb-4"><span><LiNum num={3} />Click on <b>Next</b> to go to the <i>add permissions page.</i> We would not be adding any permissions for now because the permission policy content will be dependent on the AWS Account ID retrieved from the IAM role. Click on <b>Next.</b></span></li>
-                        <li className="mb-4">
-                            <h2><LiNum num={4} />In the <i>Role name field,</i> enter the below-mentioned role name, and click on <b>Create Role-</b></h2>
-                            <div className={`px-10 mt-4`}>
-                                <div className={`border p-2 w-1/4 rounded cursor-pointer transition-colors duration-200`}
-                                    style={{ borderColor: hover ? colors.bgCol : "#e5e7eb" }}
-                                    onMouseEnter={() => setHover(true)}
-                                    onMouseLeave={() => setHover(false)}
-                                    onClick={() => copyToClipboard(role)}
-                                >
-                                    <span className="flex items-center gap-2">
-                                        <button className="p-1 border rounded cursor-pointer" style={{ color: hover ? "white" : colors.bgCol, backgroundColor: hover ? colors.bgCol : "transparent" }}>
-                                            <Copy fontSize="xs" />
-                                        </button>
-                                        {role}
-                                    </span>
-                                </div>
+            <li className="mb-8">
+              <h2><LiNum num={3} />In the <b>Name</b> field, enter below-mentioned policy name and click on Create Policy</h2>
+              <div className={`px-10 mt-4`}>
+                <CopyField field={field[0]} />
+              </div>
+            </li>
 
-                                <span className="text-xs" style={{ color: colors.bgCol }} hidden={!hover} >
-                                    Click anywhere in the box to copy the content inside.
-                                </span>
-                            </div>
-                        </li>
-                        <li className="mb-4"><h2 ><LiNum num={5} />Go to the newly created IAM Role & copy the Role ARN-</h2>
-                            <div className="w-full flex justify-center mt-5">
-                                <img src={TunerRole} alt="tunerRole" />
-                            </div>
-                        </li>
-                        <li className="mb-4"><h2 ><LiNum num={6} />Paste the copied Role ARN below -</h2>
-                            <div className="px-10 mt-4 flex justify-between">
-                                <Input label="Enter the IAM Role ARN" type="text" placeholder="Enter the IAM Role ARN" />
-                                <Input label="Enter Account ID" type="text" placeholder="Enter Account ID" />
-                                <Input label="Enter Account Name" type="text" placeholder="Enter Account Name" />
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+            <li className="mb-8"><span><LiNum num={4} />Again, go to the <span className="text-blue-800 font-bold underline">Create Policy</span>Page.</span></li>
 
-                {/* buttons */}
-                <div className="flex justify-between mt-5 mb-5">
-                    <Button name={"Cancel"} bordercolor={colors.bgCol} textcolor={colors.bgCol} className={"bg-white"} />
-                    <div className="flex gap-2">
-                        <Button name={"Back"} bordercolor={colors.bgCol} textcolor={colors.bgCol} className={"bg-white"} />
-                        <Button name={"Next - Add Customer Managed Policies"} className={"bg-gray-500 text-white"} />
-                    </div>
-                </div>
-            </div>
-        </>
-    );
+            <li className="mb-8">
+              <h2><LiNum num={5} />Click on the <b>JSON</b> tab and paste the following policy and click on Next:</h2>
+              <BoxCode policy={policy2} />
+            </li>
+
+            <li className="mb-8">
+              <h2><LiNum num={6} />In the <b>Name</b> field, enter below-mentioned policy name and click on Create Policy</h2>
+              <div className={`px-10 mt-4`}>
+                <CopyField field={field[1]} />
+              </div>
+            </li>
+
+            <li className="mb-8"><span><LiNum num={7} />Again, go to the <span className="text-blue-800 font-bold underline">Create Policy</span>Page.</span></li>
+
+            <li className="mb-8">
+              <h2><LiNum num={8} />Click on the <b>JSON</b> tab and paste the following policy and click on Next:</h2>
+              <BoxCode policy={policy3} />
+            </li>
+
+            <li className="mb-8">
+              <h2><LiNum num={9} />In the <b>Name</b> field, enter below-mentioned policy name and click on Create Policy</h2>
+              <div className={`px-10 mt-4`}>
+                <CopyField field={field[2]} />
+              </div>
+            </li>
+
+            <li className="mb-8"><h2 ><LiNum num={10} />Go to the <span className="font-bold">CK-Tuner Role</span></h2>
+              <div className="flex justify-center mt-5">
+                <img src={TunerRole} width={1500} alt="tunerRole" />
+              </div>
+            </li>
+
+            <li className="mb-8"><h2 ><LiNum num={11} />In Permission policies, click on <span className="font-bold">Add permissions &gt; Attach Policy</span></h2>
+              <div className="flex justify-center mt-5">
+                <img src={Permission} width={1500} alt="tunerRole" />
+              </div>
+            </li>
+
+            <li className="mb-8"><h2 ><LiNum num={12} />Filter by Type &gt; Customer managed then search for <span className="font-bold">cktuner-CostAuditPolicy, cktuner-SecAuditPolicy, cktuner-TunerReadEssentials</span> and select them.</h2>
+              <div className="flex justify-center mt-5">
+                <img src={Other} width={1500} alt="tunerRole" />
+              </div>
+            </li>
+
+            <li className="mb-8"><span><LiNum num={13} />Now, click on <span className="font-bold">Add permissions</span></span></li>
+          </ul>
+        </div>
+
+        {/* buttons */}
+        <div className="flex justify-between mt-5 mb-5">
+          <Button name={"Cancel"} bordercolor={colors.bgCol} textcolor={colors.bgCol} bgcolor={"white"} onClick={() => navigate("/dashboard/onboarding")} />
+          <div className="flex gap-2">
+            <Button name={"Back - Create an IAM Role"} bordercolor={colors.bgCol} textcolor={colors.bgCol} className={"bg-white"} onClick={() => navigate(-1)} />
+            <Button name={"Next - Create S3 Bucket"} textcolor={"white"} bgcolor={colors.bgCol} className={"bg-gray-500"} onClick={() => navigate("/dashboard/onboarding/CUR")} />
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default CustomerManagedPolicies;

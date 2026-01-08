@@ -28,7 +28,7 @@ const User = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await api(``)
+        const res = await api(`/users`)
         setData(Object.values(res.data))
         setFilteringData(Object.values(res.data))
 

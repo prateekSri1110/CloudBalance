@@ -1,10 +1,24 @@
 export const Button = ({
-    textcolor, bordercolor, className, name
+    textcolor,
+    bordercolor,
+    bgcolor,
+    className = "",
+    name,
+    onClick,
+    disabled = false
 }) => {
-    return <>
-        <button className={`px-5 py-2  text-sm text-[${textcolor}] border border-[${bordercolor}] rounded ${className} cursor-pointer`}>{name}</button>
-    </>
-}
+
+    return (
+        <button
+            className={`px-5 py-2 text-sm border rounded cursor-pointer ${className}`}
+            style={{ color: textcolor, borderColor: bordercolor, backgroundColor: bgcolor }}
+            onClick={onClick} disabled={disabled}
+        >
+            {name}
+        </button>
+    );
+};
+
 
 export const Input = ({
     label,
@@ -51,6 +65,6 @@ export const Input = ({
     );
 };
 
-export const LiNum = ({num}) => {
+export const LiNum = ({ num }) => {
     return <span className="rounded-full bg-gray-400 px-2 py-1 text-white mr-3">{num}</span>
 }

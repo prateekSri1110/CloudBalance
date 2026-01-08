@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import data from "../../../../../Data/CEdata";
 import { colors } from "../../../../../Utils/styles";
-import Table from "../../../../../Utils/table";
+import Table from "../../../../../Utils/Table";
 import CostChart from "./CostChart";
 import { FaChartColumn } from "react-icons/fa6";
 import { LuChartNetwork } from "react-icons/lu";

@@ -1,7 +1,7 @@
 import { colors } from "./styles";
 
-const Table = ({ data }) => {
-    const heads = Object.keys(data[0]);
+const Table = ({ data, noFoot }) => {
+    const heads = Object.keys(data?.[0] || []);
 
     const getSum = (head) => {
         return Math.round(data.reduce((sum, row) => sum + (Number(row[head]) || 0), 0) * 100) / 100;
@@ -27,7 +27,7 @@ const Table = ({ data }) => {
                         </tr>
                     ))}
                 </tbody>
-                <tfoot style={{ backgroundColor: colors.main }}>
+                <tfoot style={{ backgroundColor: colors.main }} hidden={noFoot}>
                     <tr style={{ color: colors.bgCol }}>
                         <th className="px-4 py-2">Total</th>
                         {heads.slice(1).map((head, index) => (

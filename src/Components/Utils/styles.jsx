@@ -3,6 +3,7 @@ export const colors = {
   hoverColor: "#f1fafe",
   active: "#a6d4e7ff",
   bgCol: "#0a3ca2",
+  white: "#0a3ca2",
   background: "#fafafa",
   backgroundOther: "#f8f8f8",
 };

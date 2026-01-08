@@ -8,6 +8,7 @@ const initalState = {
   slide: false,
   isAuthenticated: false,
   user: user,
+  account: { arn: "", accountName: "", accountId: "" },
 };
 
 function reducer(state = initalState, action) {
@@ -15,6 +16,20 @@ function reducer(state = initalState, action) {
     case "Slide":
       return { ...state, slide: !state.slide };
 
+    case "addAccountData":
+      return {
+        ...state,
+        arn: action.payload.arn,
+        accountName: action.payload.accountName,
+        accountId: action.payload.accountId,
+      };
+    case "clearAccount":
+      return {
+        ...state,
+        arn: "",
+        accountName: "",
+        accountId: "",
+      };
     default:
       return state;
   }

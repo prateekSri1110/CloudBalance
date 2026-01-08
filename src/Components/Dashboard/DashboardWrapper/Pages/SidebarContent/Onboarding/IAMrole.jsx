@@ -4,6 +4,8 @@ import { colors } from "../../../../../Utils/styles.jsx";
 import TunerRole from "../../../../../../assets/tunerRole.png";
 import { useState } from "react";
 import { Button, Input, LiNum } from "../../../../../Utils/TagUtils.jsx";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 const IAMrole = () => {
   const policy = `{
@@ -31,9 +33,24 @@ const IAMrole = () => {
   ]
 }`
   const [hover, setHover] = useState(false);
-
+  const navigate = useNavigate()
   const role = "CK-Tuner-Role-dev2";
   const copyToClipboard = (text) => navigator.clipboard.writeText(text)
+
+  const { arnrdx, accountNamerdx, accountIdrdx } = useSelector(state => ({
+    arnrdx: state.arn,
+    accountNamerdx: state.accountName,
+    accountIdrdx: state.accountId
+  }));
+
+  const [arn, setArn] = useState(arnrdx)
+  const [accountName, setAccountName] = useState(accountNamerdx)
+  const [accountId, setAccountId] = useState(accountIdrdx)
+
+
+  const disableNext = arn == undefined || accountName == undefined || accountId == undefined;
+
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -53,7 +70,6 @@ const IAMrole = () => {
                   </div>
                   <pre className={`text-[${colors.bgCol}] text-xs font-bold`}>
                     {policy}
-                    {/* hover:bg-[${colors.bgCol}] */}
                   </pre>
                 </div>
               </div>
@@ -90,9 +106,9 @@ const IAMrole = () => {
             </li>
             <li className="mb-4"><h2 ><LiNum num={6} />Paste the copied Role ARN below -</h2>
               <div className="px-10 mt-4 flex justify-between">
-                <Input label="Enter the IAM Role ARN" type="text" placeholder="Enter the IAM Role ARN" />
-                <Input label="Enter Account ID" type="text" placeholder="Enter Account ID" />
-                <Input label="Enter Account Name" type="text" placeholder="Enter Account Name" />
+                <Input value={arn} onChange={(e) => setArn(e.target.value)} label="Enter the IAM Role ARN" type="text" placeholder="Enter the IAM Role ARN" />
+                <Input value={accountId} onChange={(e) => setAccountId(e.target.value)} label="Enter Account ID" type="number" placeholder="Enter Account ID" />
+                <Input value={accountName} onChange={(e) => setAccountName(e.target.value)} label="Enter Account Name" type="text" placeholder="Enter Account Name" />
               </div>
             </li>
           </ul>
@@ -100,10 +116,16 @@ const IAMrole = () => {
 
         {/* buttons */}
         <div className="flex justify-between mt-5 mb-5">
-          <Button name={"Cancel"} bordercolor={colors.bgCol} textcolor={colors.bgCol} className={"bg-white"} />
+          <Button name={"Cancel"} bordercolor={colors.bgCol} textcolor={colors.bgCol} bgcolor={"white"} onClick={() => {
+            dispatch({ type: "clearAccount" });
+            navigate("/dashboard/onboarding");
+          }} />
           <div className="flex gap-2">
-            <Button name={"Back"} bordercolor={colors.bgCol} textcolor={colors.bgCol} className={"bg-white"} />
-            <Button name={"Next - Add Customer Managed Policies"} className={"bg-gray-500 text-white"} />
+            <Button name={"Back"} bordercolor={colors.bgCol} textcolor={colors.bgCol} className={"bg-white"} onClick={() => navigate(-1)} />
+            <Button name={"Next - Add Customer Managed Policies"} textcolor={"white"} bgcolor={!disableNext ? colors.bgCol : ""} className={"bg-gray-500"} onClick={() => {
+              dispatch({ type: "addAccountData", payload: { arn: arn, accountName: accountName, accountId: accountId } })
+              navigate("/dashboard/onboarding/CMP")
+            }} disabled={disableNext} />
           </div>
         </div>
       </div>

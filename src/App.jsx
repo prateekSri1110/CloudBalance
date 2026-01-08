@@ -11,6 +11,10 @@ import Error from "./Components/Dashboard/DashboardWrapper/Pages/Error.jsx";
 import CostExplorer from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/CostExplorer/CostExplorer.jsx";
 // import { AddUserstoDB } from "./Components/Data/addUserstoDB.jsx";
 import { ToastContainer } from "react-toastify";
+import IAMrole from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/Onboarding/IAMrole.jsx";
+import CustomerManagedPolicies from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/Onboarding/CustomerManagedPolicies.jsx";
+import AccountTable from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/Onboarding/AccountTable.jsx";
+import CUReport from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/Onboarding/CUReport.jsx";
 
 function App() {
   return (
@@ -32,14 +36,21 @@ function App() {
         >
           <Route path="users" element={<User />} />
           <Route path="users/addUser" element={<AddUser />} />
-          <Route path="onboarding" element={<Onboarding />} />
+
+          <Route path="onboarding" element={<Onboarding />}>
+            <Route index element={<AccountTable />} />
+            <Route path="IAMRole" element={<IAMrole />} />
+            <Route path="CMP" element={<CustomerManagedPolicies />} />
+            <Route path="/dashboard/onboarding/CUR" element={<CUReport />} />
+          </Route>
+
           <Route path="costexplorer" element={<CostExplorer />} />
           <Route path="awsservice" element={<AWSservice />} />
         </Route>
 
-        {/* Catch all */}
         <Route path="*" element={<Error />} />
       </Routes>
+
 
       <ToastContainer position="top-right" />
     </div>

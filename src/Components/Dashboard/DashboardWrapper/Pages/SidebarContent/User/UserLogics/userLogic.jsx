@@ -5,7 +5,7 @@ export const HandleAddUser = async (form) => {
   console.log(form);
 
   try {
-    await api.post(``, {
+    await api.post(`/users`, {
       firstName: form.firstName,
       lastName: form.lastName,
       role: form.role,
@@ -25,7 +25,7 @@ export const HandleAddUser = async (form) => {
 
 export const HandleUpdateUser = async (form) => {
   try {
-    await api.put(``, form)
+    await api.put(`/users`, form)
       .then(() => {
         toast("User Updated!");
       })
@@ -42,13 +42,11 @@ export const ActiveUser = (data) => {
 };
 
 export const HandleToggle = (emailId) => {
-  api.put(`/status`, null, { params: { emailId: emailId } });
+  api.put(`/users/status`, null, { params: { emailId: emailId } });
 };
 
 export const DeleteUser = (emailId) => {
-  api.delete(``, {
-    params: { emailId: emailId },
-  })
+  api.delete(`/users`, { params: { emailId: emailId }, })
     .then(() => toast("User Deleted!"))
     .catch((err) => console.log("Error!", err));
 };
