@@ -3,8 +3,10 @@ import logo from "../assets/cloudBalance.png";
 import { useRef } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate();
   const emailId = useRef();
   const password = useRef();
@@ -26,26 +28,22 @@ const Login = () => {
         {
           emailId: emailId.current.value,
           password: password.current.value,
-        },
+        }
       );
 
-      console.log("*** res", res);
       const user = {
         name: res.data.name,
         email: res.data.emailId,
         role: res.data.role
       }
 
-      console.log(user);
-
       toast.success("Login Successful!");
-
-      localStorage.setItem("user", JSON.stringify(user))
+      dispatch({ type: "UserDetails", "payload": { name: user.name, role: user.role } })
+      dispatch({ type: "authenticated" })
       localStorage.setItem("token", res.data.token)
-      localStorage.setItem("isAuthenticated", true)
 
       setTimeout(() => {
-        navigate("/dashboard/users");
+        navigate(user.role == "CUSTOMER" ? "/dashboard/costexplorer" : "/dashboard/users");
       }, 300);
     } catch (err) {
       console.error("Login error:", err);

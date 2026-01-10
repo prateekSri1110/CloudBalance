@@ -1,59 +1,86 @@
-import { Route, Routes } from "react-router-dom";
-import "./App.css";
+import { Routes, Route } from "react-router-dom";
 import Login from "./Components/Login";
 import Dashboard from "./Components/Dashboard/Dashboard";
-import AWSservice from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/AWSservice.jsx";
-import Onboarding from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/Onboarding/Onboarding.jsx";
-import User from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/User/User.jsx";
-import AddUser from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/User/AddUser.jsx";
-import { Protected } from "./Components/Protected.jsx";
-import Error from "./Components/Dashboard/DashboardWrapper/Pages/Error.jsx";
-import CostExplorer from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/CostExplorer/CostExplorer.jsx";
-// import { AddUserstoDB } from "./Components/Data/addUserstoDB.jsx";
-import { ToastContainer } from "react-toastify";
-import IAMrole from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/Onboarding/IAMrole.jsx";
-import CustomerManagedPolicies from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/Onboarding/CustomerManagedPolicies.jsx";
-import AccountTable from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/Onboarding/AccountTable.jsx";
-import CUReport from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/Onboarding/CUReport.jsx";
+import User from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/User/User";
+import AddUser from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/User/AddUser";
+import Onboarding from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/Onboarding/Onboarding";
+import AccountTable from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/Onboarding/AccountTable";
+import IAMrole from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/Onboarding/IAMrole";
+import CustomerManagedPolicies from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/Onboarding/CustomerManagedPolicies";
+import CUReport from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/Onboarding/CUReport";
+import CostExplorer from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/CostExplorer/CostExplorer";
+import AWSservice from "./Components/Dashboard/DashboardWrapper/Pages/SidebarContent/AWSservice";
+import Unauthorized from "./Components/Dashboard/DashboardWrapper/Pages/Unauthorized";
+import Error from "./Components/Dashboard/DashboardWrapper/Pages/Error";
+import { Protected } from "./Components/Protected";
 
 function App() {
   return (
-    // <AddUserstoDB />
-    <div>
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
+    <Routes>
+      {/* Public Routes */}
+      <Route path="/" element={<Login />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/unauthorized" element={<Unauthorized />} />
 
-        {/* Protected Routes */}
+      {/* Dashboard - base protected */}
+      <Route
+        path="/dashboard"
+        element={
+          <Protected roles={["ADMIN", "READONLY", "CUSTOMER"]}>
+            <Dashboard />
+          </Protected>
+        }
+      >
+        {/* USERS */}
+        <Route path="users" element={<User />} />
         <Route
-          path="/dashboard"
+          path="users/addUser"
           element={
-            <Protected>
-              <Dashboard />
+            <Protected roles={["ADMIN"]}>
+              <AddUser />
+            </Protected>
+          }
+        />
+
+        {/* ONBOARDING */}
+        <Route
+          path="onboarding"
+          element={
+            <Protected roles={["ADMIN", "READONLY"]}>
+              <Onboarding />
             </Protected>
           }
         >
-          <Route path="users" element={<User />} />
-          <Route path="users/addUser" element={<AddUser />} />
-
-          <Route path="onboarding" element={<Onboarding />}>
-            <Route index element={<AccountTable />} />
-            <Route path="IAMRole" element={<IAMrole />} />
-            <Route path="CMP" element={<CustomerManagedPolicies />} />
-            <Route path="/dashboard/onboarding/CUR" element={<CUReport />} />
-          </Route>
-
-          <Route path="costexplorer" element={<CostExplorer />} />
-          <Route path="awsservice" element={<AWSservice />} />
+          <Route index element={<AccountTable />} />
+          <Route path="IAMRole" element={<Protected roles={["ADMIN"]}><IAMrole /> </Protected>} />
+          <Route path="CMP" element={<Protected roles={["ADMIN"]}><CustomerManagedPolicies /> </Protected>} />
+          <Route path="CUR" element={<Protected roles={["ADMIN"]}><CUReport /> </Protected>} />
         </Route>
 
-        <Route path="*" element={<Error />} />
-      </Routes>
+        {/* COST EXPLORER */}
+        <Route
+          path="costexplorer"
+          element={
+            <Protected roles={["ADMIN", "READONLY", "CUSTOMER"]}>
+              <CostExplorer />
+            </Protected>
+          }
+        />
 
+        {/* AWS SERVICE */}
+        <Route
+          path="awsservice"
+          element={
+            <Protected roles={["ADMIN", "CUSTOMER", "READONLY"]}>
+              <AWSservice />
+            </Protected>
+          }
+        />
+      </Route>
 
-      <ToastContainer position="top-right" />
-    </div>
+      {/* out of route */}
+      <Route path="*" element={<Error />} />
+    </Routes>
   );
 }
 

@@ -5,10 +5,12 @@ import Breadcrumb from "../../../../../Utils/breadcrumbs";
 import { Button } from "../../../../../Utils/TagUtils";
 import { colors } from "../../../../../Utils/styles";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const AccountTable = () => {
     const [accounts, setAccounts] = useState([]);
     const navigate = useNavigate();
+    const role = useSelector(state => state.user.role)
 
     useEffect(() => {
         const fetchAccounts = async () => {
@@ -29,7 +31,9 @@ const AccountTable = () => {
             <div className="p-5 bg-white rounded">
                 <div className="flex justify-between mb-5">
                     <p>Displaying all connected AWS accounts</p>
-                    <Button name={"+ Link Account"} textcolor={"white"} bgcolor={colors.bgCol} onClick={() => navigate("/dashboard/onboarding/IAMRole")} />
+                    {role === "ADMIN" ?
+                        <Button name={"+ Link Account"} textcolor={"white"} bgcolor={colors.bgCol} onClick={() => navigate("/dashboard/onboarding/IAMRole")} />
+                        : null}
                 </div>
                 <Table data={accounts} noFoot={true} />
             </div>

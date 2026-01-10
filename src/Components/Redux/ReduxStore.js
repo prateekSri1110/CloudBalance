@@ -1,13 +1,9 @@
 import { createStore } from "redux";
 
-const user = localStorage.getItem("user")
-  ? JSON.parse(localStorage.getItem("user"))
-  : {};
-
 const initalState = {
   slide: false,
   isAuthenticated: false,
-  user: user,
+  user: { name: "", role: "" },
   account: { arn: "", accountName: "", accountId: "" },
 };
 
@@ -16,20 +12,49 @@ function reducer(state = initalState, action) {
     case "Slide":
       return { ...state, slide: !state.slide };
 
+    case "authenticated":
+      return { ...state, isAuthenticated: !state.isAuthenticated };
+
+    case "UserDetails":
+      return {
+        ...state,
+        user: {
+          name: action.payload.name,
+          role: action.payload.role,
+        },
+      };
+
+    case "ClearUserDetails":
+      return {
+        ...state,
+        user: {
+          name: "",
+          role: "",
+        },
+      };
+
     case "addAccountData":
       return {
         ...state,
-        arn: action.payload.arn,
-        accountName: action.payload.accountName,
-        accountId: action.payload.accountId,
+        account: {
+          arn: action.payload.arn,
+          accountName: action.payload.accountName,
+          accountId: action.payload.accountId,
+        },
       };
     case "clearAccount":
       return {
         ...state,
-        arn: "",
-        accountName: "",
-        accountId: "",
+        account: {
+          arn: "",
+          accountName: "",
+          accountId: "",
+        },
       };
+
+    case "LOGOUT":
+      return { ...initalState };
+      
     default:
       return state;
   }

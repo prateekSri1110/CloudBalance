@@ -9,11 +9,11 @@ const Table = ({ data, noFoot }) => {
 
     return <>
         <div>
-            <table className="min-w-full text-sm border border-blue-100 text-left">
+            <table className="w-full text-sm border border-blue-100 text-left">
                 <thead style={{ backgroundColor: colors.main }}>
                     <tr style={{ color: colors.bgCol }}>
                         {heads.map((head, index) => (
-                            <th key={index} className="px-4 py-2">{head}</th>
+                            <th key={index} className="px-4 py-2">{head.toUpperCase()}</th>
                         ))}
                     </tr>
                 </thead>

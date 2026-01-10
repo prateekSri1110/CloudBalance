@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import api from "../../../../../../Utils/axios";
 
 export const HandleAddUser = async (form) => {
-  console.log(form);
+  // console.log(form);
 
   try {
     await api.post(`/users`, {

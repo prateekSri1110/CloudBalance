@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const Ecodes = [401, 403, 500]
+
 const api = axios.create({
     baseURL: "http://localhost:8080",
 });
@@ -15,9 +17,11 @@ api.interceptors.request.use(config => {
 api.interceptors.response.use(
     res => res,
     err => {
-        if (err.response?.status === 401) {
-            localStorage.removeItem("token");   
-            window.location.href = "/login";
+        const status = err?.response?.status;
+
+        if (status && Ecodes.includes(status)) {
+            localStorage.removeItem("token");
+            window.location.replace("/login");
         }
         return Promise.reject(err);
     }

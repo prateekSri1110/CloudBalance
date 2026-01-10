@@ -47,6 +47,7 @@ const Navbar = () => {
         <button
           onClick={() => {
             localStorage.clear();
+            dispatch({ type: "LOGOUT" })
             navigate("/login");
           }}
           className="flex items-center gap-1 px-3 py-1 border rounded hover:shadow-md">

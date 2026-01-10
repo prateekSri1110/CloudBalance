@@ -7,10 +7,12 @@ import TunerRole from "../../../../../../assets/tunerRole.png";
 import Permission from "../../../../../../assets/permission.png";
 import Other from "../../../../../../assets/other.png";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const CustomerManagedPolicies = () => {
 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const policy1 = `{
   "Version": "2012-10-17",
@@ -535,7 +537,10 @@ const CustomerManagedPolicies = () => {
 
         {/* buttons */}
         <div className="flex justify-between mt-5 mb-5">
-          <Button name={"Cancel"} bordercolor={colors.bgCol} textcolor={colors.bgCol} bgcolor={"white"} onClick={() => navigate("/dashboard/onboarding")} />
+          <Button name={"Cancel"} bordercolor={colors.bgCol} textcolor={colors.bgCol} bgcolor={"white"} onClick={() => {
+            dispatch({ type: "clearAccount" });
+            navigate("/dashboard/onboarding");
+          }} />
           <div className="flex gap-2">
             <Button name={"Back - Create an IAM Role"} bordercolor={colors.bgCol} textcolor={colors.bgCol} className={"bg-white"} onClick={() => navigate(-1)} />
             <Button name={"Next - Create S3 Bucket"} textcolor={"white"} bgcolor={colors.bgCol} className={"bg-gray-500"} onClick={() => navigate("/dashboard/onboarding/CUR")} />
