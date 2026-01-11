@@ -18,43 +18,31 @@ function reducer(state = initalState, action) {
     case "UserDetails":
       return {
         ...state,
-        user: {
-          name: action.payload.name,
-          role: action.payload.role,
-        },
+        name: action.payload.name,
+        role: action.payload.role,
       };
 
     case "ClearUserDetails":
       return {
         ...state,
-        user: {
-          name: "",
-          role: "",
-        },
+        name: "",
+        role: "",
       };
 
     case "addAccountData":
       return {
         ...state,
-        account: {
-          arn: action.payload.arn,
-          accountName: action.payload.accountName,
-          accountId: action.payload.accountId,
-        },
+        arn: action.payload.arn,
+        accountName: action.payload.accountName,
+        accountId: action.payload.accountId,
       };
     case "clearAccount":
       return {
         ...state,
-        account: {
-          arn: "",
-          accountName: "",
-          accountId: "",
-        },
+        arn: "",
+        accountName: "",
+        accountId: "",
       };
-
-    case "LOGOUT":
-      return { ...initalState };
-      
     default:
       return state;
   }

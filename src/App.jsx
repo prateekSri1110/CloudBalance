@@ -52,9 +52,9 @@ function App() {
           }
         >
           <Route index element={<AccountTable />} />
-          <Route path="IAMRole" element={<Protected roles={["ADMIN"]}><IAMrole /> </Protected>} />
-          <Route path="CMP" element={<Protected roles={["ADMIN"]}><CustomerManagedPolicies /> </Protected>} />
-          <Route path="CUR" element={<Protected roles={["ADMIN"]}><CUReport /> </Protected>} />
+          <Route path="IAMRole" element={<Protected roles={["ADMIN", "READONLY"]}><IAMrole /> </Protected>} />
+          <Route path="CMP" element={<Protected roles={["ADMIN", "READONLY"]}><CustomerManagedPolicies /> </Protected>} />
+          <Route path="CUR" element={<Protected roles={["ADMIN", "READONLY"]}><CUReport /> </Protected>} />
         </Route>
 
         {/* COST EXPLORER */}
