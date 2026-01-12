@@ -37,18 +37,18 @@ const IAMrole = () => {
   const role = "CK-Tuner-Role-dev2";
   const copyToClipboard = (text) => navigator.clipboard.writeText(text)
 
-  const { arnrdx, accountNamerdx, accountIdrdx } = useSelector(state => ({
+  const { arnrdx, accNamerdx, accountIdrdx } = useSelector(state => ({
     arnrdx: state.arn,
-    accountNamerdx: state.accountName,
+    accNamerdx: state.accName,
     accountIdrdx: state.accountId
   }));
 
   const [arn, setArn] = useState(arnrdx)
-  const [accountName, setAccountName] = useState(accountNamerdx)
+  const [accName, setAccName] = useState(accNamerdx)
   const [accountId, setAccountId] = useState(accountIdrdx)
 
 
-  const disableNext = arn == undefined || accountName == undefined || accountId == undefined;
+  const disableNext = arn == undefined || accName == undefined || accountId == undefined;
 
   const dispatch = useDispatch();
 
@@ -108,7 +108,7 @@ const IAMrole = () => {
               <div className="px-10 mt-4 flex justify-between">
                 <Input value={arn} onChange={(e) => setArn(e.target.value)} label="Enter the IAM Role ARN" type="text" placeholder="Enter the IAM Role ARN" />
                 <Input value={accountId} onChange={(e) => setAccountId(e.target.value)} label="Enter Account ID" type="number" placeholder="Enter Account ID" />
-                <Input value={accountName} onChange={(e) => setAccountName(e.target.value)} label="Enter Account Name" type="text" placeholder="Enter Account Name" />
+                <Input value={accName} onChange={(e) => setAccName(e.target.value)} label="Enter Account Name" type="text" placeholder="Enter Account Name" />
               </div>
             </li>
           </ul>
@@ -121,9 +121,8 @@ const IAMrole = () => {
             navigate("/dashboard/onboarding");
           }} />
           <div className="flex gap-2">
-            <Button name={"Back"} bordercolor={colors.bgCol} textcolor={colors.bgCol} className={"bg-white"} onClick={() => navigate(-1)} />
             <Button name={"Next - Add Customer Managed Policies"} textcolor={"white"} bgcolor={!disableNext ? colors.bgCol : ""} className={"bg-gray-500"} onClick={() => {
-              dispatch({ type: "addAccountData", payload: { arn: arn, accountName: accountName, accountId: accountId } })
+              dispatch({ type: "addAccountData", payload: { arn: arn, accName: accName, accountId: accountId } })
               navigate("/dashboard/onboarding/CMP")
             }} disabled={disableNext} />
           </div>

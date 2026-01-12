@@ -16,13 +16,15 @@ import { Protected } from "./Components/Protected";
 
 function App() {
   return (
-    <Routes>
-      {/* Public Routes */}
-      <Route path="/" element={<Login />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/unauthorized" element={<Unauthorized />} />
+    // Public Routes 
 
-      {/* Dashboard - base protected */}
+    < Routes >
+      < Route path="/" element={< Login />} />
+      < Route path="/login" element={< Login />} />
+      < Route path="/unauthorized" element={< Unauthorized />} />
+
+
+      {/* //  Dashboard - base protected */}
       <Route
         path="/dashboard"
         element={
@@ -31,18 +33,18 @@ function App() {
           </Protected>
         }
       >
-        {/* USERS */}
-        <Route path="users" element={<User />} />
-        <Route
+        {/* //  USERS */}
+        < Route path="users" element={< User />} />
+        < Route
           path="users/addUser"
           element={
-            <Protected roles={["ADMIN"]}>
+            < Protected roles={["ADMIN"]} >
               <AddUser />
-            </Protected>
+            </Protected >
           }
         />
 
-        {/* ONBOARDING */}
+        {/* //  ONBOARDING */}
         <Route
           path="onboarding"
           element={
@@ -57,7 +59,7 @@ function App() {
           <Route path="CUR" element={<Protected roles={["ADMIN"]}><CUReport /> </Protected>} />
         </Route>
 
-        {/* COST EXPLORER */}
+        {/* //  COST EXPLORER */}
         <Route
           path="costexplorer"
           element={
@@ -67,7 +69,7 @@ function App() {
           }
         />
 
-        {/* AWS SERVICE */}
+        {/* //  AWS SERVICE */}
         <Route
           path="awsservice"
           element={
@@ -76,11 +78,11 @@ function App() {
             </Protected>
           }
         />
-      </Route>
+      </Route >
 
       {/* out of route */}
       <Route path="*" element={<Error />} />
-    </Routes>
+    </Routes >
   );
 }
 

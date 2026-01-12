@@ -2,7 +2,7 @@ import axios from "axios";
 
 const Ecodes = [401, 403, 500]
 
-const api = axios.create({
+export const api = axios.create({
     baseURL: "http://localhost:8080",
 });
 

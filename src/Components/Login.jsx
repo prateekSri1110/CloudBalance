@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/cloudBalance.png";
 import { useRef } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
+import { api } from "./Utils/axios"
 
 const Login = () => {
   const dispatch = useDispatch()
@@ -24,27 +24,20 @@ const Login = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:8080/login",
+      const res = await api.post("http://localhost:8080/login",
         {
           emailId: emailId.current.value,
           password: password.current.value,
         }
       );
 
-      const user = {
-        name: res.data.name,
-        email: res.data.emailId,
-        role: res.data.role
-      }
-
       toast.success("Login Successful!");
-      dispatch({ type: "UserDetails", "payload": { name: user.name, role: user.role } })
+      localStorage.setItem("token", res.data)
       dispatch({ type: "authenticated" })
-      localStorage.setItem("token", res.data.token)
+      const userData = await api.get('/users/profile');
+      dispatch({ type: "UserDetails", "payload": userData.data })
 
-      setTimeout(() => {
-        navigate(user.role == "CUSTOMER" ? "/dashboard/costexplorer" : "/dashboard/users");
-      }, 300);
+      navigate(userData.data.role == "CUSTOMER" ? "/dashboard/costexplorer" : "/dashboard/users");
     } catch (err) {
       console.error("Login error:", err);
       const message = err?.response?.data || "Invalid email or password";
