@@ -8,7 +8,6 @@ export const Protected = ({ children, roles }) => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
   const user = useSelector(state => state.user);
-  const [role, setRole] = useState("")
 
   if (token == null) {
     console.log("token unavailable");
@@ -23,16 +22,14 @@ export const Protected = ({ children, roles }) => {
         dispatch({ type: "UserDetails", payload: profile.data })
         console.log("inside : ", profile.data.role);
 
-        setRole(profile.data.role)
-
         if (Array.isArray(roles) && !roles.includes(profile.data.role))
           navigate('/unauthorized')
       }
       console.log("im runing", roles, " role : ", user.role);
 
-      if (!roles.includes(role)) return <Navigate to="/unauthorized" replace />
+      if (!roles.includes(user.role)) return <Navigate to="/unauthorized" replace />
     })()
-  }, [token])
+  }, [dispatch, navigate, token, roles, user.role])
 
 
   return children;
