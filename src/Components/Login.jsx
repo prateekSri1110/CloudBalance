@@ -29,7 +29,7 @@ const Login = () => {
           emailId: emailId.current.value,
           password: password.current.value,
         }
-      );
+      ).catch(err => toast(err));
 
       toast.success("Login Successful!");
       localStorage.setItem("token", res.data)
@@ -60,7 +60,6 @@ const Login = () => {
             name="emailId"
             className="block border text-lg px-5 py-3 w-full rounded"
             placeholder="Email"
-            autoComplete="current-email"
           />
         </div>
 
@@ -71,7 +70,7 @@ const Login = () => {
             type="password"
             name="password"
             className="block border text-lg px-5 py-3 w-full rounded"
-            autoComplete="current-password"
+            // autoComplete="current-password"
             placeholder="Password"
           />
         </div>

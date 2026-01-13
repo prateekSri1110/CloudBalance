@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const Ecodes = [401, 403, 500]
+const Ecodes = [401, 500]
 
 export const api = axios.create({
     baseURL: "http://localhost:8080",
@@ -21,8 +21,11 @@ api.interceptors.response.use(
 
         if (status && Ecodes.includes(status)) {
             localStorage.removeItem("token");
-            window.location.replace("/login");
+            window.location.replace("/");
         }
+
+        if (status && status == 402) window.location.replace("/unauthorized");
+        
         return Promise.reject(err);
     }
 );

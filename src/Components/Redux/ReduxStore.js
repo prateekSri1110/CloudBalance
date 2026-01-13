@@ -4,7 +4,6 @@ const initalState = {
   slide: false,
   isAuthenticated: false,
   user: { name: "", role: "" },
-  account: {},
 };
 
 function reducer(state = initalState, action) {
@@ -25,26 +24,6 @@ function reducer(state = initalState, action) {
       return {
         ...state,
         user: { name: "", role: "" },
-      };
-
-    case "addAccountData":
-      return {
-        ...state,
-        account: {
-          accName: action.payload.accName,
-          accountId: action.payload.accountId,
-          arn: action.payload.arn,
-        },
-      };
-
-    case "clearAccount":
-      return {
-        ...state,
-        account: {
-          accName: null,
-          accountId: null,
-          arn: null,
-        },
       };
 
     case "LOGOUT":

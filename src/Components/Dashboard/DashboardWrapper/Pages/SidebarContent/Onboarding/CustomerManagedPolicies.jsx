@@ -1,4 +1,3 @@
-import Breadcrumbs from "../../../../../Utils/breadcrumbs.jsx";
 import { colors } from "../../../../../Utils/styles.jsx";
 import { Button, Input, LiNum } from "../../../../../Utils/TagUtils.jsx";
 import { BoxCode } from "../../../../../Utils/compUtils.jsx";
@@ -6,14 +5,8 @@ import CopyField from "../../../../../Utils/CopyField.jsx";
 import TunerRole from "../../../../../../assets/tunerRole.png";
 import Permission from "../../../../../../assets/permission.png";
 import Other from "../../../../../../assets/other.png";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 
-const CustomerManagedPolicies = () => {
-
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-
+const CustomerManagedPolicies = ({ root, onBack, onNext }) => {
   const policy1 = `{
   "Version": "2012-10-17",
   "Statement": [
@@ -464,7 +457,6 @@ const CustomerManagedPolicies = () => {
 
   return (
     <>
-      <Breadcrumbs />
       <div className="px-8 py-5">
         <h1 className="font-bold text-3xl mb-2">Add Customer Managed Policies</h1>
         <h2 className="mb-5">Create an Inline policy for the role by following these steps</h2>
@@ -537,13 +529,10 @@ const CustomerManagedPolicies = () => {
 
         {/* buttons */}
         <div className="flex justify-between mt-5 mb-5">
-          <Button name={"Cancel"} bordercolor={colors.bgCol} textcolor={colors.bgCol} bgcolor={"white"} onClick={() => {
-            dispatch({ type: "clearAccount" });
-            navigate("/dashboard/onboarding");
-          }} />
+          <Button name={"Cancel"} bordercolor={colors.bgCol} textcolor={colors.bgCol} bgcolor={"white"} onClick={root} />
           <div className="flex gap-2">
-            <Button name={"Back - Create an IAM Role"} bordercolor={colors.bgCol} textcolor={colors.bgCol} className={"bg-white"} onClick={() => navigate(-1)} />
-            <Button name={"Next - Create S3 Bucket"} textcolor={"white"} bgcolor={colors.bgCol} className={"bg-gray-500"} onClick={() => navigate("/dashboard/onboarding/CUR")} />
+            <Button name={"Back - Create an IAM Role"} bordercolor={colors.bgCol} textcolor={colors.bgCol} className={"bg-white"} onClick={onBack} />
+            <Button name={"Next - Create S3 Bucket"} textcolor={"white"} bgcolor={colors.bgCol} className={"bg-gray-500"} onClick={onNext} />
           </div>
         </div>
       </div>

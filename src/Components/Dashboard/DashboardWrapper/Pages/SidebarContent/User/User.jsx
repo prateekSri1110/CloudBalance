@@ -88,18 +88,44 @@ const User = () => {
               </div>
             </div>
           </div>
-          <div className="border border-blue-100">
+          <div className="border border-blue-100 max-h-[calc(65vh)] overflow-y-auto">
             <table className="min-w-full text-sm text-left">
-              <thead style={{ backgroundColor: colors.main }}>
-                <tr style={{ color: colors.bgCol }}>
-                  <th className="px-4 py-2 border border-white">First Name <span onClick={() => sortTable(data, "firstName")}><Sort color={colors.bgCol} /></span></th>
-                  <th className="px-4 py-2 border border-white">Last Name <span onClick={() => sortTable(data, "lastName")}><Sort color={colors.bgCol} /></span></th>
-                  <th className="px-4 py-2 border border-white">Email ID <span onClick={() => sortTable(data, "emailId")}><Sort color={colors.bgCol} /></span></th>
-                  <th className="px-4 py-2 border border-white">Roles <span onClick={() => sortTable(data, "role")}><Sort color={colors.bgCol} /></span></th>
+              <thead
+                className="sticky top-0 z-10"
+                style={{ backgroundColor: colors.main, color: colors.bgCol }}
+              >
+                <tr>
+                  <th className="px-4 py-2 border border-white">
+                    First Name
+                    <span onClick={() => sortTable(data, "firstName")}>
+                      <Sort />
+                    </span>
+                  </th>
+                  <th className="px-4 py-2 border border-white">
+                    Last Name
+                    <span onClick={() => sortTable(data, "lastName")}>
+                      <Sort />
+                    </span>
+                  </th>
+                  <th className="px-4 py-2 border border-white">
+                    Email ID
+                    <span onClick={() => sortTable(data, "emailId")}>
+                      <Sort />
+                    </span>
+                  </th>
+                  <th className="px-4 py-2 border border-white">
+                    Roles
+                    <span onClick={() => sortTable(data, "role")}>
+                      <Sort />
+                    </span>
+                  </th>
                   <th className="px-4 py-2 border border-white">Last Login</th>
-                  <th hidden={role == "READONLY"} className="px-4 py-2 border border-white">Actions</th>
+                  <th hidden={role === "READONLY"} className="px-4 py-2 border border-white">
+                    Actions
+                  </th>
                 </tr>
               </thead>
+
               <tbody>
                 {(!active ? activeData : filteringData).map((user, index) => (
                   <tr key={index} className="even:bg-white odd:bg-gray-100">
@@ -107,53 +133,27 @@ const User = () => {
                     <td className="px-4 py-2">{user.lastName}</td>
                     <td className="px-4 py-2">{user.emailId}</td>
                     <td className="px-4 py-2">
-                      <button className="bg-blue-100 border border-1 px-2 rounded">
+                      <button className="bg-blue-100 border px-2 rounded">
                         {user.role}
                       </button>
                     </td>
                     <td className="px-4 py-2 text-sm">{user.lastLogin}</td>
-                    <td className="px-4 py-2" hidden={role == "READONLY"}>
+                    <td className="px-4 py-2" hidden={role === "READONLY"}>
                       <div className="flex gap-5">
-                        <button
-                          onClick={() => {
-                            HandleToggle(user.emailId)
-                            setUpdate(!update)
-                          }}
-                        >
-                          {user.active ? (
-                            <ToggleOn
-                              style={{ color: colors.bgCol, cursor: "pointer" }}
-                              fontSize="large"
-                            />
-                          ) : (
-                            <ToggleOff fontSize="large" />
-                          )}
-                        </button>
-                        <button
-                          onClick={() =>
-                            navigate("addUser", {
-                              state: {
-                                firstName: user.firstName,
-                                lastName: user.lastName,
-                                emailId: user.emailId,
-                                role: user.role,
-                              },
-                            })
-                          }
-                        >
-                          <Edit
-                            style={{ color: colors.bgCol, cursor: "pointer" }}
-                          />
+                        <button onClick={() => { HandleToggle(user.emailId); setUpdate(!update); }}>
+                          {user.active ? <ToggleOn fontSize="large" /> : <ToggleOff fontSize="large" />}
                         </button>
 
-                        {/* delete */}
                         <button
-                          onClick={() => {
-                            DeleteUser(user.emailId)
-                            setUpdate(!update)
-                          }}
+                          onClick={() =>
+                            navigate("addUser", { state: user })
+                          }
                         >
-                          <DeleteIcon style={{ color: colors.bgCol, cursor: "pointer" }} />
+                          <Edit />
+                        </button>
+
+                        <button onClick={() => { DeleteUser(user.emailId); setUpdate(!update); }}>
+                          <DeleteIcon />
                         </button>
                       </div>
                     </td>
@@ -162,6 +162,7 @@ const User = () => {
               </tbody>
             </table>
           </div>
+
         </div>
       </div>
     </>

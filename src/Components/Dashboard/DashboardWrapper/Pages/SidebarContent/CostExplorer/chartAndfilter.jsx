@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-import data from "../../../../../Data/CEdata";
 import { colors } from "../../../../../Utils/styles";
 import Table from "../../../../../Utils/Table";
 import CostChart from "./CostChart";
@@ -8,14 +7,11 @@ import { LuChartNetwork } from "react-icons/lu";
 import { LuChartColumnStacked } from "react-icons/lu";
 import { useState } from "react";
 
-const ChartAndfilters = (value) => {
-    const filter = value.filter;
-    const side = value.side;
+const ChartAndfilters = ({ filter, curtype, side, start, setStart, end, setEnd, data }) => {
     const [type, setType] = useState("mscolumn2d");
 
     return <>
         <div className="flex">
-
             <div className={`bg-gray-100 ${side ? "w-4/5" : "w-full"}`}>
                 {/* charts */}
                 <div className="charts px-3 py-5">
@@ -26,17 +22,16 @@ const ChartAndfilters = (value) => {
                         <div className="flex gap-2 mb-3">
                             <div className="flex gap-2 text-sm items-center">
                                 <label>Start :</label>
-                                <input type="date" className="p-1 border border-gray-400 rounded bg-white" />
+                                <input type="month" value={start} onChange={e => setStart(e.target.value)} className="p-1 border border-gray-400 rounded bg-white" />
                                 <label>End :</label>
-                                <input type="date" className="p-1 border border-gray-400 rounded bg-white" />
-                                <button type="button" className={`bg-[${colors.bgCol}] p-1 text-white font-bold rounded cursor-pointer`}>Apply</button>
+                                <input type="month" value={end} onChange={e => setEnd(e.target.value)} className="p-1 border border-gray-400 rounded bg-white" />
+                                {/* <button type="button" className={`bg-[${colors.bgCol}] p-1 text-white font-bold rounded cursor-pointer`} >Apply</button> */}
                             </div>
 
                             <div className="flex items-center">
                                 <NavLink onClick={() => setType("mscolumn2d")} className={({ isActive }) => `flex items-center p-2 border border-gray-300 rounded shadow-md hover:bg-white ${isActive ? "bg-[#f1fafe]" : ""}`}>
                                     <FaChartColumn color={colors.bgCol} />
                                 </NavLink>
-
                                 <NavLink onClick={() => setType("msline")} className={({ isActive }) => `flex items-center p-2 border border-gray-300 rounded shadow-md hover:bg-white ${isActive ? "bg-[#f1fafe]" : ""}`}>
                                     <LuChartNetwork color={colors.bgCol} />
                                 </NavLink>
@@ -48,13 +43,12 @@ const ChartAndfilters = (value) => {
                         </div>
 
                     </div>
-                    <CostChart props={{ data, type }} />
+                    <CostChart data={data} type={type} />
                 </div>
 
                 {/* table */}
-                <div className="filters">
-                    <Table data={data} />
-                </div>
+
+                <Table data={data} curtype={curtype} />
             </div>
 
             {/* side filters */}

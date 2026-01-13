@@ -5,25 +5,29 @@ import ReactFC from "react-fusioncharts";
 
 ReactFC.fcRoot(FusionCharts, Charts, FusionTheme);
 
-const CostChart = ({ props }) => {
-  const { data, type } = props;
-  if (!data || data.length === 0) return null;
+const CostChart = ({ data, type }) => {
+
+  const months = [
+    "jan", "feb", "mar", "apr", "may", "jun",
+    "jul", "aug", "sep", "oct", "nov", "dec"
+  ];
+
+  const group = data.map(item => item.subtype);
+  console.log("group", group);
 
   // X-axis categories (Months)
   const categories = [
     {
-      category: data.map(d => ({
-        label: d.month
+      category: months.map(month => ({
+        label: month.toUpperCase()
       }))
     }
   ];
 
-  const services = Object.keys(data[0]).filter(key => key !== "month");
-
-  const dataset = services.map(service => ({
-    seriesname: service,
-    data: data.map(d => ({
-      value: d[service]
+  const dataset = data.map(item => ({
+    seriesname: item.subtype,
+    data: months.map(month => ({
+      value: item.monthCost?.[month] ?? 0
     }))
   }));
 
@@ -35,7 +39,7 @@ const CostChart = ({ props }) => {
     dataSource: {
       chart: {
         xAxisName: "Months",
-        yAxisName: "Cost (USD)",
+        yAxisName: "Cost (in $)",
         numberPrefix: "$",
         theme: "fusion",
         showValues: "0",

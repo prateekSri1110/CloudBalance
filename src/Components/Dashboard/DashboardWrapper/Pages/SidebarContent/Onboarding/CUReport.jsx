@@ -5,27 +5,10 @@ import CopyField from "../../../../../Utils/CopyField.jsx";
 import E2 from "../../../../../../assets/E2.png";
 import E3 from "../../../../../../assets/E3.png";
 import E4 from "../../../../../../assets/E4.png";
-import api from "../../../../../Utils/axios.jsx";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
 
-const CUReport = () => {
-    const navigate = useNavigate();
-    const dispatch = useDispatch()
-    const { arn, accountName, accountId } = useSelector(state => ({
-        arn: state.arn,
-        accountName: state.accountName,
-        accountId: state.accountId
-    }));
+const CUReport = ({ root, onBack, onSubmit }) => {
     const field = ["ck-tuner-275595855473-hourly-cur", 275595855473]
 
-    const addAccount = async () => {
-        await api.post('/accounts', {
-            arn: arn, accountId: accountId, accountName: accountName
-        }).then(() => toast("Account Added!"))
-            .catch(() => toast("Account add failed!"))
-    }
     return (
         <>
             <Breadcrumbs />
@@ -88,13 +71,10 @@ const CUReport = () => {
 
                 {/* buttons */}
                 <div className="flex justify-between mt-5 mb-5" >
-                    <Button name={"Cancel"} bordercolor={colors.bgCol} textcolor={colors.bgCol} bgcolor={"white"} onClick={() => {
-                        dispatch({ type: "clearAccount" });
-                        navigate("/dashboard/onboarding");
-                    }} />
+                    <Button name={"Cancel"} bordercolor={colors.bgCol} textcolor={colors.bgCol} bgcolor={"white"} onClick={root} />
                     <div className="flex gap-2">
-                        <Button name={"Back - Setup CMP Replication"} bordercolor={colors.bgCol} textcolor={colors.bgCol} className={"bg-white"} onClick={() => navigate(-1)} />
-                        <Button name={"Submit"} bgcolor={colors.bgCol} textcolor={"white"} onClick={addAccount} />
+                        <Button name={"Back - Setup CMP Replication"} bordercolor={colors.bgCol} textcolor={colors.bgCol} className={"bg-white"} onClick={onBack} />
+                        <Button name={"Submit"} bgcolor={colors.bgCol} textcolor={"white"} onClick={onSubmit} />
                     </div>
                 </div >
             </div >
