@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import api from "../../../../../../Utils/axios";
 
 export const HandleAddUser = async (form) => {
-
+  console.log("accountIds", form);
   try {
     await api.post(`/users`, {
       firstName: form.firstName,
@@ -10,6 +10,7 @@ export const HandleAddUser = async (form) => {
       role: form.role,
       emailId: form.emailId,
       password: form.password,
+      accountIds: form.accountIds
     })
       .then(() => {
         toast("User Added!");
@@ -23,8 +24,17 @@ export const HandleAddUser = async (form) => {
 };
 
 export const HandleUpdateUser = async (form) => {
+  console.log("update user ", form);
+
   try {
-    await api.put(`/users`, form)
+    await api.put(`/users`, {
+      firstName: form.firstName,
+      lastName: form.lastName,
+      role: form.role,
+      emailId: form.emailId,
+      password: form.password,
+      accountIds: form.accountIds
+    })
       .then(() => {
         toast("User Updated!");
       })

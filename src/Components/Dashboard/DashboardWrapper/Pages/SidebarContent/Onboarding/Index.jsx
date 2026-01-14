@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { colors } from "../../../../../Utils/styles";
 import api from "../../../../../Utils/axios";
@@ -11,10 +11,13 @@ import CUReport from "./CUReport";
 import { toast } from "react-toastify";
 
 const Onboarding = () => {
-  const [accounts, setAccounts] = useState([]);
+  const accounts = useSelector(state => state.accounts)
   const [accountForm, setAccountForm] = useState({ accountId: "", accountName: "", arn: "" })
   const [currentStep, setCurrentStep] = useState(null);
   const role = useSelector(state => state.user.role)
+
+  console.log("My acount data ", accounts);
+
 
   const startOnboarding = () => {
     setCurrentStep(0);
@@ -34,18 +37,6 @@ const Onboarding = () => {
 
   const steps = [IAMrole, CustomerManagedPolicies, CUReport];
   const StepComponent = steps[currentStep];
-
-  useEffect(() => {
-    const fetchAccounts = async () => {
-      try {
-        const res = await api.get(`/accounts`)
-        setAccounts(res.data)
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    fetchAccounts()
-  }, [])
 
   const addAccount = async () => {
     console.log(accountForm.arn, accountForm.accountId, accountForm.accountName);

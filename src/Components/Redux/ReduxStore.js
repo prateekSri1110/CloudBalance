@@ -3,7 +3,8 @@ import { createStore } from "redux";
 const initalState = {
   slide: false,
   isAuthenticated: false,
-  user: { name: "", role: "" },
+  user: { name: "", emailId: "", role: "" },
+  accounts: { accountId: "", accountName: "", arn: "" },
 };
 
 function reducer(state = initalState, action) {
@@ -23,8 +24,11 @@ function reducer(state = initalState, action) {
     case "ClearUserDetails":
       return {
         ...state,
-        user: { name: "", role: "" },
+        user: { name: "", role: "", emailId: "" },
       };
+
+    case "loadAccounts":
+      return { ...state, accounts: action.payload };
 
     case "LOGOUT":
       return { ...initalState };

@@ -2,9 +2,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { colors } from "../../../../../Utils/styles";
 import Breadcrumb from "../../../../../Utils/breadcrumbs";
 import { HandleAddUser, HandleUpdateUser } from "./UserLogics/userLogic";
-import { useState } from "react";
-import AccountOnboard from "../Onboarding/accountOnboard";
+import { useEffect, useState } from "react";
 import { Input } from "../../../../../Utils/TagUtils";
+import AccountOnboard from "./UserLogics/accountOnboard";
+import api from "../../../../../Utils/axios";
 
 const AddUser = () => {
   const navigate = useNavigate();
@@ -12,13 +13,34 @@ const AddUser = () => {
   const updateState = useLocation();
   const isUpdate = updateState.state;
 
+  const [selectedAccounts, setSelectedAccounts] = useState([]);
+
   const [form, setForm] = useState(() => ({
-    firstName: updateState.state?.firstName ?? "",
-    lastName: updateState.state?.lastName ?? "",
-    emailId: updateState.state?.emailId ?? "",
-    role: updateState.state?.role ?? "",
-    password: updateState.state?.password ?? ""
+    firstName: "",
+    lastName: "",
+    emailId: "",
+    role: "",
+    password: "",
+    accountIds: []
   }));
+
+  useEffect(() => {
+    if (isUpdate) {
+      setForm({
+        firstName: isUpdate.firstName ?? "",
+        lastName: isUpdate.lastName ?? "",
+        emailId: isUpdate.emailId ?? "",
+        role: isUpdate.role ?? "",
+        password: "",
+        accountIds: isUpdate.accountIds ?? []
+      });
+    }
+  }, [isUpdate]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm(prev => ({ ...prev, [name]: value }));
+  };
 
   const isDisabled =
     !form.firstName.trim() ||
@@ -26,6 +48,15 @@ const AddUser = () => {
     !form.emailId.trim() ||
     !form.role.trim() ||
     (!isUpdate && !form.password.trim());
+
+  const [allAccounts, setAllAccounts] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const res = await api.get('/accounts');
+      setAllAccounts(res?.data);
+    })();
+  }, []);
 
   return (
     <div className="p-3 bg-white-400">
@@ -40,26 +71,55 @@ const AddUser = () => {
           <form className="form">
             <div className="flex">
               <div className="mb-5">
-                <label className="mb-4">First Name <span className="text-red-600">*</span></label>
-                <Input type="text" placeholder={"Enter First Name"} value={form.firstName} onChange={(e) => setForm(prev => ({ ...prev, firstName: e.target.value }))} />
+                <label className="mb-4">
+                  First Name <span className="text-red-600">*</span>
+                </label>
+                <Input
+                  type="text"
+                  name="firstName"
+                  placeholder="Enter First Name"
+                  value={form.firstName}
+                  onChange={handleChange}
+                />
               </div>
               <div className="mb-5 ml-5">
-                <label className="mb-4">Last Name <span className="text-red-600">*</span></label>
-                <Input type="text" placeholder={"Enter Last Name"} value={form.lastName} onChange={(e) => setForm(prev => ({ ...prev, lastName: e.target.value }))} />
+                <label className="mb-4">
+                  Last Name <span className="text-red-600">*</span>
+                </label>
+                <Input
+                  type="text"
+                  name="lastName"
+                  placeholder="Enter Last Name"
+                  value={form.lastName}
+                  onChange={handleChange}
+                />
               </div>
             </div>
+
             <div className="flex">
               <div className="mb-5">
-                <label className="mb-5">Email <span className="text-red-600">*</span></label>
-                <Input type="email" placeholder={"Enter Email"} value={form.emailId} onChange={(e) => setForm(prev => ({ ...prev, emailId: e.target.value }))} readOnly={isUpdate ? true : false} />
+                <label className="mb-5">
+                  Email <span className="text-red-600">*</span>
+                </label>
+                <Input
+                  type="email"
+                  name="emailId"
+                  placeholder="Enter Email"
+                  value={form.emailId}
+                  onChange={handleChange}
+                />
               </div>
+
               <div className="mb-5 ml-5 w-80">
-                <label className="mb-4">Select Data <span className="text-red-600">*</span></label>
+                <label className="mb-4">
+                  Select Data <span className="text-red-600">*</span>
+                </label>
                 <br />
                 <select
+                  name="role"
                   className="block border text-sm text-gray-500 px-5 py-3 w-100 rounded border border-blue-200"
                   value={form.role}
-                  onChange={(e) => setForm(prev => ({ ...prev, role: e.target.value }))}
+                  onChange={handleChange}
                 >
                   <option value=""> Select Role</option>
                   <option value="ADMIN">ADMIN</option>
@@ -68,21 +128,40 @@ const AddUser = () => {
                 </select>
               </div>
             </div>
-            {!updateState.state ? (<div className="flex">
-              <div className="mb-5 w-80">
-                <label className="mb-5">Password <span className="text-red-600">*</span></label>
-                <Input type="password" placeholder={"Enter Password"} value={form.password} onChange={(e) => setForm(prev => ({ ...prev, password: e.target.value }))} readOnly={isUpdate ? true : false} />
+
+            {!isUpdate && (
+              <div className="flex">
+                <div className="mb-5 w-80">
+                  <label className="mb-5">
+                    Password <span className="text-red-600">*</span>
+                  </label>
+                  <Input
+                    type="password"
+                    name="password"
+                    placeholder="Enter Password"
+                    value={form.password}
+                    onChange={handleChange}
+                    readOnly={isUpdate}
+                  />
+                </div>
               </div>
-            </div>) : (null)}
+            )}
           </form>
         </div>
 
         <div className="w-1/2">
-          {form.role == "CUSTOMER" ? <AccountOnboard /> : null}
+          {!isDisabled && form.role === "CUSTOMER" ? (
+            <AccountOnboard
+              allAccounts={allAccounts}
+              selectedAccounts={selectedAccounts}
+              setSelectedAccounts={setSelectedAccounts}
+            />
+          ) : null}
         </div>
       </div>
+
       <div
-        className="gap-3 w-full flex justify-end  p-5"
+        className="gap-3 w-full flex justify-end p-5"
         style={{ backgroundColor: colors.main }}
       >
         <button
@@ -91,21 +170,29 @@ const AddUser = () => {
         >
           Cancel
         </button>
+
         <button
-          className={`text-white font-bold ${isDisabled ? "bg-gray-500" : "bg-blue-700"} px-5 py-2 border rounded-sm mb-4 cursor-pointer`}
+          className={`text-white font-bold ${isDisabled ? "bg-gray-500" : "bg-blue-700"
+            } px-5 py-2 border rounded-sm mb-4 cursor-pointer`}
           onClick={() => {
-            (isUpdate ?
-              HandleUpdateUser(form).then(st => { if (st) navigate("/dashboard/users") })
-              :
-              HandleAddUser(form).then(st => { if (st) navigate("/dashboard/users") })
-            )
+            const payload = {
+              ...form,
+              accountIds: form.role === "CUSTOMER" ? selectedAccounts : []
+            };
+
+            (isUpdate
+              ? HandleUpdateUser(payload)
+              : HandleAddUser(payload)
+            ).then(st => {
+              if (st) navigate("/dashboard/users");
+            });
           }}
           disabled={isDisabled}
         >
           Submit
         </button>
       </div>
-    </div >
+    </div>
   );
 };
 

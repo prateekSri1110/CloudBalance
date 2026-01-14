@@ -141,7 +141,7 @@ const User = () => {
                     <td className="px-4 py-2" hidden={role === "READONLY"}>
                       <div className="flex gap-5">
                         <button onClick={() => { HandleToggle(user.emailId); setUpdate(!update); }}>
-                          {user.active ? <ToggleOn fontSize="large" /> : <ToggleOff fontSize="large" />}
+                          {user.active ? <ToggleOn style={{ color: colors.bgCol }} fontSize="large" /> : <ToggleOff fontSize="large" />}
                         </button>
 
                         <button
@@ -149,11 +149,11 @@ const User = () => {
                             navigate("addUser", { state: user })
                           }
                         >
-                          <Edit />
+                          <Edit style={{ color: colors.bgCol }} />
                         </button>
 
                         <button onClick={() => { DeleteUser(user.emailId); setUpdate(!update); }}>
-                          <DeleteIcon />
+                          <DeleteIcon style={{ color: colors.bgCol }} />
                         </button>
                       </div>
                     </td>

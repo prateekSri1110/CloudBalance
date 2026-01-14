@@ -17,7 +17,7 @@ const CostExplorer = () => {
   const [start, setStart] = useState(`${lastSixMonth.getFullYear()}-${String(lastSixMonth.getMonth() + 1).padStart(2, "0")}`);
   const [end, setEnd] = useState(`${lastMonth.getFullYear()}-${String(lastMonth.getMonth() + 1).padStart(2, "0")}`);
 
-  const types = ["Service", "Instance_Type", "Account_ID", "Usage_Type", "Platform", "Region", "Usage_Type_Group", "Purchase_Option", "API_Operation", "Resource", "Tags", "Charge_Type", "Availability_Zone"];
+  const types = ["Service", "Region", "Account_Id", "Platform", "Instance_Type", "Usage_Type", "Purchase_Option", "Api_Operation", "Availability_Zone", "Tenancy", "Legal_Entity", "Billing_Entity"]
   const [type, setType] = useState(types[0])
   const visibleTypes = types.slice(0, 5);
   const hiddenTypes = types.slice(5);
@@ -102,7 +102,7 @@ const CostExplorer = () => {
                     More
                   </option>
                   {hiddenTypes.map(item => (
-                    <option key={item} value={item}>
+                    <option key={item} value={item} onClick={() => setType(item)}>
                       {item}
                     </option>
                   ))}

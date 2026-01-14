@@ -15,6 +15,7 @@ export const Protected = ({ children, roles }) => {
       console.log("token unavailable");
       navigate("/login")
     }
+
     (async () => {
       if (token && user.role == '') {
         const profile = await api.get('/users/profile').catch(() => navigate("/login"))

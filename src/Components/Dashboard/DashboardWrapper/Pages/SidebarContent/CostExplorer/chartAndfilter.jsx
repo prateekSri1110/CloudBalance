@@ -1,14 +1,14 @@
 import { NavLink } from "react-router-dom";
 import { colors } from "../../../../../Utils/styles";
-import Table from "../../../../../Utils/Table";
 import CostChart from "./CostChart";
 import { FaChartColumn } from "react-icons/fa6";
 import { LuChartNetwork } from "react-icons/lu";
 import { LuChartColumnStacked } from "react-icons/lu";
 import { useState } from "react";
+import CeTable from "../../../../../Utils/CEtable";
 
-const ChartAndfilters = ({ filter, curtype, side, start, setStart, end, setEnd, data }) => {
-    const [type, setType] = useState("mscolumn2d");
+const ChartAndfilters = ({ side, filter, start, end, setStart, setEnd, data }) => {
+    const [chartType, setChartType] = useState("mscolumn2d");
 
     return <>
         <div className="flex">
@@ -29,26 +29,25 @@ const ChartAndfilters = ({ filter, curtype, side, start, setStart, end, setEnd, 
                             </div>
 
                             <div className="flex items-center">
-                                <NavLink onClick={() => setType("mscolumn2d")} className={({ isActive }) => `flex items-center p-2 border border-gray-300 rounded shadow-md hover:bg-white ${isActive ? "bg-[#f1fafe]" : ""}`}>
+                                <NavLink onClick={() => setChartType("mscolumn2d")} className={({ isActive }) => `flex items-center p-2 border border-gray-300 rounded shadow-md hover:bg-white ${isActive ? "bg-[#f1fafe]" : ""}`}>
                                     <FaChartColumn color={colors.bgCol} />
                                 </NavLink>
-                                <NavLink onClick={() => setType("msline")} className={({ isActive }) => `flex items-center p-2 border border-gray-300 rounded shadow-md hover:bg-white ${isActive ? "bg-[#f1fafe]" : ""}`}>
+                                <NavLink onClick={() => setChartType("msline")} className={({ isActive }) => `flex items-center p-2 border border-gray-300 rounded shadow-md hover:bg-white ${isActive ? "bg-[#f1fafe]" : ""}`}>
                                     <LuChartNetwork color={colors.bgCol} />
                                 </NavLink>
 
-                                <NavLink onClick={() => setType("marimekko")} className={({ isActive }) => `flex items-center p-2 border border-gray-300 rounded shadow-md hover:bg-white ${isActive ? "bg-[#f1fafe]" : ""}`}>
+                                <NavLink onClick={() => setChartType("marimekko")} className={({ isActive }) => `flex items-center p-2 border border-gray-300 rounded shadow-md hover:bg-white ${isActive ? "bg-[#f1fafe]" : ""}`}>
                                     <LuChartColumnStacked color={colors.bgCol} />
                                 </NavLink>
                             </div>
                         </div>
 
                     </div>
-                    <CostChart data={data} type={type} />
+                    <CostChart data={data} type={chartType} />
                 </div>
 
                 {/* table */}
-
-                <Table data={data} curtype={curtype} />
+                <CeTable data={data} />
             </div>
 
             {/* side filters */}
