@@ -5,6 +5,7 @@ import ChartAndfilters from "./chartAndfilter.jsx";
 import Breadcrumb from "../../../../../Utils/breadcrumbs.jsx";
 import { toast } from "react-toastify";
 import api from "../../../../../Utils/axios.jsx";
+import { useSelector } from "react-redux";
 
 const CostExplorer = () => {
   const [filterOn, setFilterOn] = useState(false);
@@ -25,16 +26,22 @@ const CostExplorer = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const role = useSelector(state => state?.user.role)
+  const accountId = useSelector(state => state?.accountId)
+
   useEffect(() => {
     if (start >= end) {
       toast("end date should be after start date!");
       return;
     }
+    console.log(role, accountId);
     const fetchCost = async () => {
       try {
         setLoading(true);
-        const res = await api.get("/costexplorer", {
-          params: { type, start, end }
+        const endpoint = role === 'CUSTOMER' ? '/costexplorer/accountId' : '/costexplorer';
+        const payload = role === 'CUSTOMER' ? { accountId, type, start, end } : { type, start, end };
+        const res = await api.get(endpoint, {
+          params: payload
         })
 
         const costData = Array.isArray(res.data) ? res.data : Object.values(res.data);
@@ -48,12 +55,12 @@ const CostExplorer = () => {
     };
 
     fetchCost();
-  }, [type, start, end]);
+  }, [accountId, role, type, start, end]);
 
   return (
     <>
       <Breadcrumb />
-      <div className="major w-full p-2">
+      <div className="w-full p-2">
         <div className="flex justify-between items-center mb-4">
           <div>
             <h1 className="text-2xl font-bold">Cost Explorer</h1>
@@ -83,7 +90,7 @@ const CostExplorer = () => {
             <span>|</span>
 
             <div className="flex gap-2 items-center">
-              {/* First 5 */}
+              {/* First 5 groupby */}
               {visibleTypes.map(item => (
                 <button
                   key={item}
@@ -95,7 +102,7 @@ const CostExplorer = () => {
                 </button>
               ))}
 
-              {/* Dropdown*/}
+              {/* rest groupby - Dropdown*/}
               {hiddenTypes.length > 0 && (
                 <select className="text-xs p-2 w-20 font-bold cursor-pointer" style={{ color: colors.bgCol }} defaultValue="" onChange={(e) => setType(e.target.value)}>
                   <option value="" disabled>
@@ -109,7 +116,6 @@ const CostExplorer = () => {
                 </select>
               )}
             </div>
-
           </div>
 
           {/* chart filter */}

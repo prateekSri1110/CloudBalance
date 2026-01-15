@@ -7,38 +7,35 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { colors } from "../Utils/styles";
-import { useEffect, useState } from "react";
-import api from "../Utils/axios";
+import { useState } from "react";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { name, emailId, role, slide } = useSelector((state) => ({
+  const [selectedAccount, setSelectedAccount] = useState("");
+
+  const handleChange = (e) => {
+    const accountId = e.target.value;
+    setSelectedAccount(accountId);
+    console.log("selectedAccount", accountId);
+
+    dispatch({ type: "setAccountId", payload: accountId });
+  };
+
+  
+
+  const { name, role, slide } = useSelector((state) => ({
     name: state.user.name,
-    emailId: state.user.emailId,
     role: state.user.role,
     slide: state.slide,
   }));
 
-  console.log(name, emailId, role);
-
-  const [accounts, setAccounts] = useState([])
-  useEffect(() => {
-    const endpoint = (role === 'CUSTOMER') ? "/users/useraccounts" : "/accounts";
-    (async () => {
-      const res = await api.get(endpoint, {
-        params: {
-          emailId: emailId
-        }
-      })
-      dispatch({ type: "loadAccounts", payload: res?.data })
-      console.log("accounts data : ", res?.data);
-      setAccounts(Object.values(res?.data))
-    })()
-  }, [])
+  const [accounts, setAccounts] = useState(useSelector(state => state.allAccounts))
+  console.log("accounts navI", accounts);
 
   const toggleSlide = () => {
+    accounts
     dispatch({ type: "Slide", payload: !slide });
   };
 
@@ -59,10 +56,12 @@ const Navbar = () => {
               <h4 className="font-semibold text-gray-700 leading-none">Accounts</h4>
               <div className="relative inline-block">
                 <select
-                  defaultValue="Select Role"
+                  value={selectedAccount}
+                  onChange={handleChange}
                   className="appearance-none text-gray-800 focus:outline-none pr-6 text-base"
                 >
-                  <option value="">Select Account</option>
+                  <option value={accounts[0]?.accountName}>{accounts[0]?.accountName}</option>
+
                   {accounts?.map((acc) => (
                     <option key={acc.accountId} value={acc.accountId}>
                       {acc.accountName}

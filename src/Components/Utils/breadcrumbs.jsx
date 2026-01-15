@@ -14,7 +14,7 @@ const Breadcrumb = () => {
                 </Link>
                 {url.map(p => {
                     return (
-                        <Link to={"/"+p} className="inline-flex items-center" key={p}>
+                        <Link className="inline-flex items-center" key={p}>
                             <span>{p}</span>
                             <Path fontSize="small" />
                         </Link>

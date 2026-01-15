@@ -36,6 +36,7 @@ const Login = () => {
       dispatch({ type: "authenticated" })
       const userData = await api.get('/users/profile');
       dispatch({ type: "UserDetails", "payload": userData.data })
+      dispatch({ type: "allAccounts", payload: userData.data.accounts })
 
       navigate(userData.data.role == "CUSTOMER" ? "/dashboard/costexplorer" : "/dashboard/users");
     } catch (err) {

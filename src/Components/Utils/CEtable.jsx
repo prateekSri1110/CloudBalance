@@ -7,15 +7,13 @@ const CeTable = ({ data }) => {
         return Object.keys(data[0].monthlyCost);
     }, [data]);
 
-    const getSum = (key) => data.reduce((sum, row) => sum + (Number(row[key]) || 0), 0);
     const format = (val) => typeof val === "number" ? `$ ${val.toLocaleString()}` : val;
 
     return (
+        <div className="border border-blue-100 max-h-[calc(50vh)] overflow-y-auto">
+            <table className="min-w-full text-sm text-left">
 
-        <div className="overflow-x-auto">
-            <table className="w-full text-sm border border-blue-100 text-left">
-
-                <thead style={{ backgroundColor: colors.main }}>
+                <thead className="sticky top-0 z-10" style={{ backgroundColor: colors.main }}>
                     <tr style={{ color: colors.bgCol }} >
                         <th className="px-4 py-2 uppercase">{data[0].groupType}</th>
                         {months.map(month => (
@@ -25,7 +23,6 @@ const CeTable = ({ data }) => {
                     </tr>
                 </thead>
 
-
                 <tbody>
                     {data.map(row => (
                         <tr key={row.groupName} className="even:bg-white odd:bg-gray-100">
@@ -33,20 +30,20 @@ const CeTable = ({ data }) => {
 
                             {months.map(month => (
                                 <td className="px-4 py-2" key={month}>
-                                    {row.monthlyCost[month] ?? 0}
+                                    {format(row.monthlyCost[month]) ?? 0}
                                 </td>
                             ))}
 
-                            <td className="px-4 py-2">{row.total}</td>
+                            <td className="px-4 py-2">{format(row.total)}</td>
                         </tr>
                     ))}
                 </tbody>
 
-                <tfoot style={{ backgroundColor: colors.main }}>
+                {/* <tfoot style={{ backgroundColor: colors.main }}>
                     <tr style={{ color: colors.bgCol }}>
                         <th className="px-4 py-2">Total</th>
                     </tr>
-                </tfoot>
+                </tfoot> */}
             </table>
         </div>
     );

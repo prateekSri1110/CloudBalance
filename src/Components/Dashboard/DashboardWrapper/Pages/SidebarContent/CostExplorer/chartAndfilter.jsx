@@ -51,7 +51,7 @@ const ChartAndfilters = ({ side, filter, start, end, setStart, setEnd, data }) =
             </div>
 
             {/* side filters */}
-            <aside className={`bg-white h-screen transition-all duration-300 ease-in-out ${side ? "w-1/5" : "w-0 overflow-hidden"}`}>
+            <aside className={`bg-white transition-all duration-300 ease-in-out ${side ? "w-1/5" : "w-0 overflow-hidden"}`}>
                 <div className="shadow-lg">
                     <div className="flex justify-between p-4">
                         <h2 className="font-bold text-xl">Filters</h2>
@@ -63,10 +63,7 @@ const ChartAndfilters = ({ side, filter, start, end, setStart, setEnd, data }) =
                         {filter.map((item) => (
                             <div className="p-2" key={item}>
                                 <div className="flex gap-2 p-2 text-md">
-                                    <input
-                                        key={item}
-                                        type="checkbox"
-                                    />
+                                    <input key={item} type="checkbox" />
                                     <span>{item}</span>
                                 </div>
                                 <hr className="text-gray-300" />

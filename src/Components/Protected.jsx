@@ -19,8 +19,11 @@ export const Protected = ({ children, roles }) => {
     (async () => {
       if (token && user.role == '') {
         const profile = await api.get('/users/profile').catch(() => navigate("/login"))
+        console.log("profile data ", profile.data);
+
         dispatch({ type: "authenticated" })
         dispatch({ type: "UserDetails", payload: profile.data })
+        dispatch({ type: "allAccounts", payload: profile.data.accounts })
 
         if (Array.isArray(roles) && !roles.includes(profile.data.role))
           navigate('/unauthorized')

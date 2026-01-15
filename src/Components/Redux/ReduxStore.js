@@ -5,6 +5,8 @@ const initalState = {
   isAuthenticated: false,
   user: { name: "", emailId: "", role: "" },
   accounts: { accountId: "", accountName: "", arn: "" },
+  allAccounts: { accountId: "", accountName: "", arn: "" },
+  accountId: "",
 };
 
 function reducer(state = initalState, action) {
@@ -24,14 +26,20 @@ function reducer(state = initalState, action) {
     case "ClearUserDetails":
       return {
         ...state,
-        user: { name: "", role: "", emailId: "" },
+        user: { name: "", role: "", emailId: "", accounts: "" },
       };
 
     case "loadAccounts":
       return { ...state, accounts: action.payload };
 
+    case "allAccounts":
+      return { ...state, allAccounts: action.payload };
+
     case "LOGOUT":
       return { ...initalState };
+
+    case "setAccountId":
+      return { ...state, accountId: action.payload };
 
     default:
       return state;
