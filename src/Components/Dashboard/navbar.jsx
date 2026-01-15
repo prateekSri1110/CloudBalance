@@ -7,23 +7,21 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { colors } from "../Utils/styles";
-import { useState } from "react";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [selectedAccount, setSelectedAccount] = useState("");
+  const accounts = useSelector(state => state.allAccounts);
+  const selectedAccount = useSelector(state => state.accountId);
 
   const handleChange = (e) => {
     const accountId = e.target.value;
-    setSelectedAccount(accountId);
     console.log("selectedAccount", accountId);
-
     dispatch({ type: "setAccountId", payload: accountId });
   };
 
-  
+
 
   const { name, role, slide } = useSelector((state) => ({
     name: state.user.name,
@@ -31,7 +29,6 @@ const Navbar = () => {
     slide: state.slide,
   }));
 
-  const [accounts, setAccounts] = useState(useSelector(state => state.allAccounts))
   console.log("accounts navI", accounts);
 
   const toggleSlide = () => {
@@ -54,24 +51,29 @@ const Navbar = () => {
           <div className="flex items-center space-x-8">
             <div className="flex flex-col text-sm">
               <h4 className="font-semibold text-gray-700 leading-none">Accounts</h4>
-              <div className="relative inline-block">
-                <select
-                  value={selectedAccount}
-                  onChange={handleChange}
-                  className="appearance-none text-gray-800 focus:outline-none pr-6 text-base"
-                >
-                  <option value={accounts[0]?.accountName}>{accounts[0]?.accountName}</option>
+              {accounts == null ? <h1>...loading</h1> :
+                (
 
-                  {accounts?.map((acc) => (
-                    <option key={acc.accountId} value={acc.accountId}>
-                      {acc.accountName}
-                    </option>
-                  ))}
-                </select>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center text-blue-500">
-                  <RiArrowDropDownLine size={27} />
-                </div>
-              </div>
+                  <div className="relative inline-block">
+                    <select
+                      value={selectedAccount}
+                      onChange={handleChange}
+                      className="appearance-none text-gray-800 focus:outline-none pr-6 text-base"
+                    >
+                      <option value="">Select Account</option>
+
+                      {accounts.map(acc => (
+                        <option key={acc.accountId} value={acc.accountId}>
+                          {acc.accountName}
+                        </option>
+                      ))}
+
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center text-blue-500">
+                      <RiArrowDropDownLine size={27} />
+                    </div>
+                  </div>
+                )}
             </div>
           </div>
         ) : null}

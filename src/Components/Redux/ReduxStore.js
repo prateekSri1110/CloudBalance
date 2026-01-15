@@ -4,8 +4,7 @@ const initalState = {
   slide: false,
   isAuthenticated: false,
   user: { name: "", emailId: "", role: "" },
-  accounts: { accountId: "", accountName: "", arn: "" },
-  allAccounts: { accountId: "", accountName: "", arn: "" },
+  allAccounts: [],
   accountId: "",
 };
 

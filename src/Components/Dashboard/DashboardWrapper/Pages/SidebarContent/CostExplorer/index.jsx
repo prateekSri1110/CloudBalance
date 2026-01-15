@@ -30,25 +30,31 @@ const CostExplorer = () => {
   const accountId = useSelector(state => state?.accountId)
 
   useEffect(() => {
+    if (role === "CUSTOMER" && !accountId) return;
+
     if (start >= end) {
       toast("end date should be after start date!");
       return;
     }
-    console.log(role, accountId);
+
     const fetchCost = async () => {
       try {
         setLoading(true);
-        const endpoint = role === 'CUSTOMER' ? '/costexplorer/accountId' : '/costexplorer';
-        const payload = role === 'CUSTOMER' ? { accountId, type, start, end } : { type, start, end };
-        const res = await api.get(endpoint, {
-          params: payload
-        })
 
-        const costData = Array.isArray(res.data) ? res.data : Object.values(res.data);
-        setData(costData);
+        const endpoint =
+          role === "CUSTOMER"
+            ? "/costexplorer/accountId"
+            : "/costexplorer";
+
+        const payload =
+          role === "CUSTOMER"
+            ? { accountId, type, start, end }
+            : { type, start, end };
+
+        const res = await api.get(endpoint, { params: payload });
+        setData(Array.isArray(res.data) ? res.data : Object.values(res.data));
       } catch (err) {
-        console.error(err);
-        setError("Failed to load users");
+        setError("Failed to load cost data", err);
       } finally {
         setLoading(false);
       }
